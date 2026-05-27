@@ -38,8 +38,8 @@ const ParticleNetwork = () => {
         this.density = (Math.random() * 20) + 1;
       }
       draw() {
-        ctx.fillStyle = 'rgba(59, 130, 246, 0.8)'; // text-primary blue
         ctx.beginPath();
+        ctx.fillStyle = 'rgba(212, 175, 55, 0.8)'; // gold particles
         ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
         ctx.closePath();
         ctx.fill();
@@ -73,7 +73,7 @@ const ParticleNetwork = () => {
 
     const init = () => {
       particles = [];
-      let numberOfParticles = Math.floor((canvas.height * canvas.width) / 10000);
+      let numberOfParticles = Math.min(Math.floor((canvas.height * canvas.width) / 25000), 80);
       for (let i = 0; i < numberOfParticles; i++) {
         particles.push(new Particle());
       }
