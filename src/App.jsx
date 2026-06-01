@@ -4,6 +4,7 @@ import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Responsi
 import { Download, Code, Briefcase, Mail, MapPin, Phone, ExternalLink, Code2, Cpu, GraduationCap, Award, BrainCircuit, Target, Home, FolderGit2, User, Sparkles, Zap, Globe } from 'lucide-react';
 
 import { FaGithub, FaLinkedin } from 'react-icons/fa';
+import emailjs from '@emailjs/browser';
 
 const Sidebar = () => (
   <nav className="fixed bottom-6 left-1/2 -translate-x-1/2 md:translate-x-0 md:left-6 md:top-1/2 md:-translate-y-1/2 md:bottom-auto bg-neutral-950/20 backdrop-blur-xl border border-white/10 rounded-full py-4 px-8 md:py-8 md:px-4 flex flex-row md:flex-col gap-6 md:gap-8 z-50 shadow-[0_8px_32px_rgba(0,0,0,0.37),inset_0_1px_1px_rgba(255,255,255,0.15),0_0_30px_rgba(212,175,55,0.15)]">
@@ -120,6 +121,16 @@ const Hero = () => {
   return (
   <section className="min-h-screen flex items-center pt-20 relative overflow-hidden bg-transparent">
     
+    {/* Hero Background Video (Veo AI Generated Character) */}
+    <video
+      autoPlay
+      muted
+      loop
+      playsInline
+      className="absolute inset-0 w-full h-full object-cover opacity-20 -z-10 select-none pointer-events-none transition-opacity duration-1000"
+      src="/Character_sitting_at_workstation_202606011152.mp4"
+    />
+
     {/* 6. Pulsating Studio Vignette Background */}
     <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-0">
       <motion.div 
@@ -149,6 +160,20 @@ const Hero = () => {
     <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center relative z-10 pointer-events-none w-full">
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} className="pointer-events-auto">
         
+        {/* Open to Work career badge */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ type: "spring", stiffness: 100, delay: 0.1 }}
+          className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 border border-primary/20 backdrop-blur-md text-primary text-[10px] md:text-xs font-bold tracking-widest mb-6 w-max shadow-[0_0_15px_rgba(212,175,55,0.08)] select-none"
+        >
+          <span className="relative flex h-2 w-2">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+            <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+          </span>
+          OPEN TO WORK: AI/ML DEVELOPER
+        </motion.div>
+
         {/* Pre-header Mask Line Reveal */}
         <div className="overflow-hidden flex items-center gap-3 mb-3">
           <motion.span 
@@ -501,16 +526,16 @@ const Skills = () => {
                 <PolarRadiusAxis angle={30} domain={[0, 100]} tick={false} axisLine={false} />
                 <RechartsTooltip 
                   contentStyle={{ backgroundColor: '#0f172a', border: '1px solid #1e293b', borderRadius: '8px' }} 
-                  itemStyle={{ color: '#3b82f6' }}
+                  itemStyle={{ color: '#d4af37' }}
                 />
                 <Radar
                   name="Proficiency"
                   dataKey="score"
-                  stroke="#3b82f6"
+                  stroke="#d4af37"
                   strokeWidth={2}
-                  fill="#3b82f6"
+                  fill="#d4af37"
                   fillOpacity={0.3}
-                  activeDot={{ r: 6, fill: '#60a5fa' }}
+                  activeDot={{ r: 6, fill: '#f5e27a', stroke: '#d4af37', strokeWidth: 2 }}
                 />
               </RadarChart>
             </ResponsiveContainer>
@@ -631,7 +656,7 @@ const Experience = () => (
           </div>
         </div>
 
-        {/* Education & Certs Column */}
+        {/* Education Column */}
         <div>
           <h2 className="text-2xl font-bold text-white mb-8 flex items-center gap-3 font-display">
             <GraduationCap className="text-primary" /> Education
@@ -652,28 +677,6 @@ const Experience = () => (
               <div className="text-primary text-sm">CGPA: 7.41</div>
             </div>
           </div>
-          
-          <h2 className="text-2xl font-bold text-white mt-12 mb-8 flex items-center gap-3 font-display">
-            <Award className="text-primary" /> Certifications
-          </h2>
-          <div className="space-y-4">
-            <a href="https://catalog-education.oracle.com/pls/certview/sharebadge?id=23E02B6E7E4748D412312617BBC62006A4081AFFF1D7783B7AC81D708DBD45D5" target="_blank" rel="noreferrer" className="block bg-neutral-900/40 backdrop-blur-md p-4 rounded-xl border border-white/10 flex justify-between items-center hover:-translate-y-2 hover:border-primary/50 hover:shadow-[0_0_30px_rgba(59,130,246,0.2)] hover:bg-neutral-800/50 transition-all duration-300 group">
-              <span className="font-medium text-white group-hover:text-primary transition-colors">OCI AI Foundations Associate</span>
-              <span className="text-sm text-neutral-400">Oracle (Dec 2025)</span>
-            </a>
-            <a href="https://www.credly.com/badges/46864d00-81a3-4197-b98e-caf4e9a04989/linked_in_profile" target="_blank" rel="noreferrer" className="block bg-neutral-900/40 backdrop-blur-md p-4 rounded-xl border border-white/10 flex justify-between items-center hover:-translate-y-2 hover:border-primary/50 hover:shadow-[0_0_30px_rgba(59,130,246,0.2)] hover:bg-neutral-800/50 transition-all duration-300 group">
-              <span className="font-medium text-white group-hover:text-primary transition-colors">Project Management Professional</span>
-              <span className="text-sm text-neutral-400">IBM (Jul 2024)</span>
-            </a>
-            <a href="https://learn.microsoft.com/api/achievements/share/en-in/SaurabhVora-0640/JHLGYGFT?sharingId=55EECCE691BD5039" target="_blank" rel="noreferrer" className="block bg-neutral-900/40 backdrop-blur-md p-4 rounded-xl border border-white/10 flex justify-between items-center hover:-translate-y-2 hover:border-primary/50 hover:shadow-[0_0_30px_rgba(59,130,246,0.2)] hover:bg-neutral-800/50 transition-all duration-300 group">
-              <span className="font-medium text-white group-hover:text-primary transition-colors">Microsoft Explore Generative AI</span>
-              <span className="text-sm text-neutral-400">Microsoft (May 2026)</span>
-            </a>
-            <a href="https://learn.microsoft.com/api/achievements/share/en-in/SaurabhVora-0640/8VXY4T4W?sharingId=55EECCE691BD5039" target="_blank" rel="noreferrer" className="block bg-neutral-900/40 backdrop-blur-md p-4 rounded-xl border border-white/10 flex justify-between items-center hover:-translate-y-2 hover:border-primary/50 hover:shadow-[0_0_30px_rgba(59,130,246,0.2)] hover:bg-neutral-800/50 transition-all duration-300 group">
-              <span className="font-medium text-white group-hover:text-primary transition-colors">Microsoft Explore AI Basics</span>
-              <span className="text-sm text-neutral-400">Microsoft (May 2026)</span>
-            </a>
-          </div>
         </div>
 
       </div>
@@ -681,28 +684,267 @@ const Experience = () => (
   </section>
 );
 
-const Contact = () => (
-  <section id="contact" className="py-24 relative overflow-hidden">
-    <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-primary/10 rounded-t-full blur-[100px] -z-10"></div>
-    <div className="max-w-3xl mx-auto px-6 text-center">
-      <h2 className="text-3xl md:text-5xl font-bold text-white mb-6 font-display">Let's Work <span className="text-primary">Together</span></h2>
-      <p className="text-neutral-400 mb-12 text-lg">I'm currently looking for new opportunities as a fresher in Data Science, AI/ML, or Data Analytics. My inbox is always open.</p>
-      
-      <div className="flex flex-col md:flex-row justify-center gap-6 mb-12">
-        <a href="mailto:saurabhvora27@gmail.com" className="flex items-center justify-center gap-3 bg-primary hover:bg-primary/90 text-white px-8 py-4 rounded-xl font-medium transition-all shadow-lg shadow-primary/25 hover:shadow-primary/40 hover:-translate-y-1">
-          <Mail size={20} /> saurabhvora27@gmail.com
-        </a>
-        <a href="tel:+919974645560" className="flex items-center justify-center gap-3 bg-neutral-800 hover:bg-neutral-700 text-white px-8 py-4 rounded-xl font-medium transition-all border border-neutral-700 hover:-translate-y-1">
-          <Phone size={20} /> +91 9974645560
-        </a>
-      </div>
+const Certificates = () => {
+  const certifications = [
+    {
+      title: 'OCI AI Foundations Associate',
+      issuer: 'Oracle',
+      date: 'Dec 2025',
+      link: 'https://catalog-education.oracle.com/pls/certview/sharebadge?id=23E02B6E7E4748D412312617BBC62006A4081AFFF1D7783B7AC81D708DBD45D5',
+      icon: <Award className="text-amber-400" size={24} />,
+      color: 'from-amber-500/10 to-yellow-500/5',
+      glow: 'group-hover:border-amber-500/30 group-hover:shadow-[0_0_20px_rgba(245,158,11,0.15)]',
+      brandColor: 'text-amber-400'
+    },
+    {
+      title: 'Project Management Professional',
+      issuer: 'IBM',
+      date: 'Jul 2024',
+      link: 'https://www.credly.com/badges/46864d00-81a3-4197-b98e-caf4e9a04989/linked_in_profile',
+      icon: <Briefcase className="text-cyan-400" size={24} />,
+      color: 'from-cyan-500/10 to-blue-500/5',
+      glow: 'group-hover:border-cyan-500/30 group-hover:shadow-[0_0_20px_rgba(6,182,212,0.15)]',
+      brandColor: 'text-cyan-400'
+    },
+    {
+      title: 'Microsoft Explore Generative AI',
+      issuer: 'Microsoft',
+      date: 'May 2026',
+      link: 'https://learn.microsoft.com/api/achievements/share/en-in/SaurabhVora-0640/JHLGYGFT?sharingId=55EECCE691BD5039',
+      icon: <BrainCircuit className="text-indigo-400" size={24} />,
+      color: 'from-indigo-500/10 to-purple-500/5',
+      glow: 'group-hover:border-indigo-500/30 group-hover:shadow-[0_0_20px_rgba(99,102,241,0.15)]',
+      brandColor: 'text-indigo-400'
+    },
+    {
+      title: 'Microsoft Explore AI Basics',
+      issuer: 'Microsoft',
+      date: 'May 2026',
+      link: 'https://learn.microsoft.com/api/achievements/share/en-in/SaurabhVora-0640/8VXY4T4W?sharingId=55EECCE691BD5039',
+      icon: <Cpu className="text-blue-400" size={24} />,
+      color: 'from-blue-500/10 to-indigo-500/5',
+      glow: 'group-hover:border-blue-500/30 group-hover:shadow-[0_0_20px_rgba(59,130,246,0.15)]',
+      brandColor: 'text-blue-400'
+    }
+  ];
 
-      <div className="flex justify-center items-center gap-2 text-neutral-400">
-        <MapPin size={18} className="text-primary" /> Ahmedabad, Gujarat, India
+  return (
+    <section id="certifications" className="py-24 relative overflow-hidden">
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-primary/5 rounded-full blur-[120px] -z-10" />
+      
+      <div className="max-w-7xl mx-auto px-6">
+        <div className="text-center mb-16">
+          <p className="text-primary text-sm font-semibold tracking-[0.2em] uppercase mb-3 font-display">Credentials & Badges</p>
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 font-display">Technical <span className="text-primary">Certifications</span></h2>
+          <div className="w-20 h-1 bg-primary mx-auto rounded-full" />
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {certifications.map((cert, idx) => (
+            <motion.a
+              key={idx}
+              href={cert.link}
+              target="_blank"
+              rel="noreferrer"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ type: "spring", stiffness: 100, delay: idx * 0.1 }}
+              className={`group relative bg-gradient-to-br ${cert.color} backdrop-blur-md rounded-2xl p-6 border border-white/10 flex flex-col justify-between h-[230px] transition-all duration-300 ${cert.glow}`}
+            >
+              <div>
+                <div className="flex justify-between items-start mb-4">
+                  <div className="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                    {cert.icon}
+                  </div>
+                  <span className={`text-xs font-bold px-2.5 py-1 rounded-full bg-white/5 border border-white/5 ${cert.brandColor}`}>
+                    {cert.issuer}
+                  </span>
+                </div>
+                
+                <h3 className="text-lg font-bold text-white group-hover:text-primary transition-colors leading-snug line-clamp-2">
+                  {cert.title}
+                </h3>
+              </div>
+
+              <div className="flex justify-between items-center pt-4 border-t border-white/5">
+                <span className="text-xs text-neutral-500 font-medium">Achieved: {cert.date}</span>
+                <span className="inline-flex items-center gap-1 text-xs font-semibold text-primary group-hover:text-white transition-colors">
+                  Verify <ExternalLink size={12} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                </span>
+              </div>
+            </motion.a>
+          ))}
+        </div>
       </div>
-    </div>
-  </section>
-);
+    </section>
+  );
+};
+
+const Contact = () => {
+  const formRef = React.useRef();
+  const [formData, setFormData] = React.useState({ name: '', email: '', message: '' });
+  const [status, setStatus] = React.useState('idle');
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setStatus('sending');
+    
+    const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+    const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+    const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+
+    if (!serviceId || !templateId || !publicKey) {
+      // Running in local/development simulation mode if keys are not loaded
+      setTimeout(() => {
+        setStatus('sent');
+        setFormData({ name: '', email: '', message: '' });
+        setTimeout(() => setStatus('idle'), 5000);
+      }, 1500);
+      return;
+    }
+
+    emailjs.sendForm(serviceId, templateId, formRef.current, {
+      publicKey: publicKey,
+    })
+    .then(
+      () => {
+        setStatus('sent');
+        setFormData({ name: '', email: '', message: '' });
+        setTimeout(() => setStatus('idle'), 5000);
+      },
+      (error) => {
+        setStatus('error');
+        setTimeout(() => setStatus('idle'), 5000);
+      }
+    );
+  };
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  return (
+    <section id="contact" className="py-24 relative overflow-hidden">
+      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-primary/10 rounded-t-full blur-[100px] -z-10"></div>
+      <div className="max-w-4xl mx-auto px-6">
+        <div className="text-center mb-12">
+          <p className="text-primary text-sm font-semibold tracking-[0.2em] uppercase mb-3 font-display">Get In Touch</p>
+          <h2 className="text-3xl md:text-5xl font-bold text-white mb-4 font-display">Let's Work <span className="text-primary">Together</span></h2>
+          <div className="w-20 h-1 bg-primary mx-auto rounded-full mb-6" />
+          <p className="text-neutral-400 max-w-xl mx-auto text-base">
+            I'm currently looking for new opportunities as a fresher in Data Science, AI/ML, or Data Analytics. Have a question or want to collaborate? Drop me a message!
+          </p>
+        </div>
+
+        <div className="grid md:grid-cols-5 gap-10 items-stretch">
+          {/* Info cards */}
+          <div className="md:col-span-2 flex flex-col justify-between gap-6">
+            <div className="bg-neutral-900/40 backdrop-blur-md border border-white/10 p-6 rounded-2xl flex flex-col gap-6 h-full justify-center">
+              <a href="mailto:saurabhvora27@gmail.com" className="flex items-center gap-4 p-4 rounded-xl bg-white/5 border border-white/5 hover:border-primary/30 hover:bg-primary/5 transition-all group">
+                <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary group-hover:scale-110 transition-transform">
+                  <Mail size={22} />
+                </div>
+                <div>
+                  <p className="text-xs text-neutral-400 font-medium">Email Me</p>
+                  <p className="text-sm font-semibold text-white group-hover:text-primary transition-colors">saurabhvora27@gmail.com</p>
+                </div>
+              </a>
+
+              <a href="tel:+919974645560" className="flex items-center gap-4 p-4 rounded-xl bg-white/5 border border-white/5 hover:border-primary/30 hover:bg-primary/5 transition-all group">
+                <div className="w-12 h-12 rounded-xl bg-emerald-500/10 flex items-center justify-center text-emerald-400 group-hover:scale-110 transition-transform">
+                  <Phone size={22} />
+                </div>
+                <div>
+                  <p className="text-xs text-neutral-400 font-medium">Call Me</p>
+                  <p className="text-sm font-semibold text-white group-hover:text-primary transition-colors">+91 9974645560</p>
+                </div>
+              </a>
+
+              <div className="flex items-center gap-4 p-4 rounded-xl bg-white/5 border border-white/5">
+                <div className="w-12 h-12 rounded-xl bg-amber-500/10 flex items-center justify-center text-amber-400">
+                  <MapPin size={22} />
+                </div>
+                <div>
+                  <p className="text-xs text-neutral-400 font-medium">Location</p>
+                  <p className="text-sm font-semibold text-white">Ahmedabad, Gujarat, India</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Contact form */}
+          <div className="md:col-span-3">
+            <form ref={formRef} onSubmit={handleSubmit} className="bg-neutral-900/40 backdrop-blur-md border border-white/10 p-8 rounded-2xl flex flex-col gap-5 relative overflow-hidden group hover:border-primary/20 transition-all duration-300">
+              
+              <div className="grid sm:grid-cols-2 gap-4">
+                <div className="flex flex-col gap-1.5">
+                  <label htmlFor="name" className="text-xs font-semibold text-neutral-300">Your Name</label>
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    required
+                    value={formData.name}
+                    onChange={handleChange}
+                    placeholder="John Doe"
+                    className="w-full bg-neutral-950/40 border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/50 placeholder:text-neutral-600 transition-all"
+                  />
+                </div>
+                <div className="flex flex-col gap-1.5">
+                  <label htmlFor="email" className="text-xs font-semibold text-neutral-300">Email Address</label>
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    required
+                    value={formData.email}
+                    onChange={handleChange}
+                    placeholder="john@example.com"
+                    className="w-full bg-neutral-950/40 border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/50 placeholder:text-neutral-600 transition-all"
+                  />
+                </div>
+              </div>
+
+              <div className="flex flex-col gap-1.5">
+                <label htmlFor="message" className="text-xs font-semibold text-neutral-300">Message</label>
+                <textarea
+                  id="message"
+                  name="message"
+                  required
+                  rows={4}
+                  value={formData.message}
+                  onChange={handleChange}
+                  placeholder="Hey Saurabh, I would love to chat about..."
+                  className="w-full bg-neutral-950/40 border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/50 placeholder:text-neutral-600 resize-none transition-all"
+                />
+              </div>
+
+              <button
+                type="submit"
+                disabled={status === 'sending' || status === 'sent'}
+                className="w-full bg-primary hover:bg-yellow-500 text-darker font-bold py-3.5 px-6 rounded-xl text-sm transition-all shadow-[0_0_20px_rgba(212,175,55,0.2)] hover:shadow-[0_0_30px_rgba(212,175,55,0.4)] disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 cursor-pointer mt-2"
+              >
+                {status === 'idle' && (
+                  <>Send Message <Sparkles size={16} /></>
+                )}
+                {status === 'sending' && (
+                  <>Sending Message...</>
+                )}
+                {status === 'sent' && (
+                  <>Message Sent Successfully! 🎉</>
+                )}
+                {status === 'error' && (
+                  <>Failed to Send. Try Again ⚠️</>
+                )}
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
 
 const Footer = () => (
   <footer className="border-t border-neutral-800 bg-darker py-8">
@@ -738,6 +980,7 @@ function App() {
           <Skills />
           <Projects />
           <Experience />
+          <Certificates />
           <Contact />
         </main>
         <Footer />
