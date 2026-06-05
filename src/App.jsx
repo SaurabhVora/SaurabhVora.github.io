@@ -1,4 +1,6 @@
-import Sidebar from './components/Sidebar';
+import { useState } from 'react';
+import { AnimatePresence } from 'framer-motion';
+import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import About from './components/About';
 import Skills from './components/Skills';
@@ -7,20 +9,37 @@ import Experience from './components/Experience';
 import Certificates from './components/Certificates';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
+import Preloader from './components/Preloader';
 
 function App() {
+  const [isLoading, setIsLoading] = useState(true);
+
   return (
-    <div className="font-sans min-h-screen text-neutral-200 relative bg-black overflow-x-hidden">
+    <>
+      <AnimatePresence mode="wait">
+        {isLoading && (
+          <Preloader onComplete={() => setIsLoading(false)} />
+        )}
+      </AnimatePresence>
+
+      <div className="font-sans min-h-screen text-neutral-200 relative overflow-x-hidden">
       
-      {/* Page Ambient Gold Auroras - Fixed Background */}
+      {/* Page Ambient Gold Auroras - Full Page Fixed Background */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none -z-10">
-        <div className="absolute top-[10%] left-[20%] w-[40vw] h-[40vw] max-w-[600px] max-h-[600px] bg-primary/10 rounded-full blur-[120px] animate-aurora-1"></div>
-        <div className="absolute top-[30%] left-[40%] w-[45vw] h-[45vw] max-w-[700px] max-h-[700px] bg-yellow-600/10 rounded-full blur-[120px] animate-aurora-2"></div>
-        <div className="absolute top-[20%] left-[50%] w-[35vw] h-[35vw] max-w-[500px] max-h-[500px] bg-amber-500/10 rounded-full blur-[120px] animate-aurora-3"></div>
+        {/* Top/Hero spots */}
+        <div className="absolute top-[5%] left-[10%] w-[50vw] h-[50vw] max-w-[500px] max-h-[500px] bg-primary/10 rounded-full blur-[140px] animate-aurora-1"></div>
+        <div className="absolute top-[20%] right-[10%] w-[45vw] h-[45vw] max-w-[500px] max-h-[500px] bg-yellow-600/8 rounded-full blur-[150px] animate-aurora-2"></div>
+        
+        {/* Middle/Skills/Projects spots */}
+        <div className="absolute top-[40%] left-[25%] w-[55vw] h-[55vw] max-w-[600px] max-h-[600px] bg-amber-500/6 rounded-full blur-[160px] animate-aurora-3"></div>
+        <div className="absolute top-[60%] right-[15%] w-[40vw] h-[40vw] max-w-[450px] max-h-[450px] bg-primary/8 rounded-full blur-[130px] animate-aurora-1"></div>
+        
+        {/* Bottom/Experience/Contact spots */}
+        <div className="absolute bottom-[10%] left-[15%] w-[50vw] h-[50vw] max-w-[550px] max-h-[550px] bg-yellow-600/8 rounded-full blur-[150px] animate-aurora-2"></div>
       </div>
 
-      <div className="relative z-10 pl-0 md:pl-24">
-        <Sidebar />
+      <div className="relative z-10">
+        <Navbar />
         <main>
           <Hero />
           <About />
@@ -33,6 +52,7 @@ function App() {
         <Footer />
       </div>
     </div>
+  </>
   );
 }
 

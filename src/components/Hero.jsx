@@ -63,32 +63,12 @@ const Hero = () => {
         />
       </div>
 
-      {/* Deep Neural Backdrop Typography */}
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-0 overflow-hidden select-none">
-        <h1 
-          className="text-[10vw] font-black tracking-[0.12em] uppercase leading-none select-none font-display opacity-35 whitespace-nowrap"
-          style={{ WebkitTextStroke: "1.5px #d4af37", color: "transparent" }}
-        >
-          INTELLIGENCE
-        </h1>
-      </div>
+
 
       <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center relative z-10 pointer-events-none w-full">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} className="pointer-events-auto">
           
-          {/* Open to Work career badge */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ type: "spring", stiffness: 100, delay: 0.1 }}
-            className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 border border-primary/20 backdrop-blur-md text-primary text-[10px] md:text-xs font-bold tracking-widest mb-6 w-max shadow-[0_0_15px_rgba(212,175,55,0.08)] select-none"
-          >
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-            </span>
-            OPEN TO WORK: AI/ML DEVELOPER
-          </motion.div>
+
 
           {/* Pre-header Mask Line Reveal */}
           <div className="overflow-hidden flex items-center gap-3 mb-3">
