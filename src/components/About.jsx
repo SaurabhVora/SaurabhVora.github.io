@@ -1,5 +1,9 @@
 import { Download, Cpu, Briefcase, FolderGit2, BrainCircuit, Zap, Globe } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
+import TiltCard from './TiltCard';
+import AnimatedCounter from './AnimatedCounter';
+import Magnetic from './Magnetic';
 
 const About = () => {
   const stats = [
@@ -59,10 +63,14 @@ const About = () => {
               When I'm not building, I'm studying the latest research, contributing to open-source projects, and looking for the next hard problem worth solving.
             </p>
             <div className="flex flex-wrap gap-3 pt-2">
-              <a href="#projects" className="bg-primary hover:bg-yellow-500 text-darker font-bold px-6 py-2.5 rounded-full text-sm transition-all shadow-[0_0_20px_rgba(212,175,55,0.3)] hover:shadow-[0_0_30px_rgba(212,175,55,0.5)]">View My Work</a>
-              <a href="/pdf/Saurabh_Vora_Resume.pdf" target="_blank" rel="noopener noreferrer" className="border border-primary/50 text-primary hover:bg-primary/10 px-6 py-2.5 rounded-full text-sm font-medium transition-all flex items-center gap-2">
-                <Download size={14} /> Download CV
-              </a>
+              <Magnetic>
+                <Link to="/projects" className="bg-primary hover:bg-yellow-500 text-darker font-bold px-6 py-2.5 rounded-full text-sm transition-all shadow-[0_0_20px_rgba(212,175,55,0.3)] hover:shadow-[0_0_30px_rgba(212,175,55,0.5)]">View My Work</Link>
+              </Magnetic>
+              <Magnetic>
+                <a href="/pdf/Saurabh_Vora_Resume.pdf" target="_blank" rel="noopener noreferrer" className="border border-primary/50 text-primary hover:bg-primary/10 px-6 py-2.5 rounded-full text-sm font-medium transition-all flex items-center gap-2">
+                  <Download size={14} /> Download CV
+                </a>
+              </Magnetic>
             </div>
           </div>
 
@@ -71,11 +79,13 @@ const About = () => {
             {/* Stat cards */}
             <div className="grid grid-cols-3 gap-4">
               {stats.map((stat, i) => (
-                <div key={i} className="bg-neutral-900/50 backdrop-blur-md border border-white/10 rounded-2xl p-5 text-center hover:border-primary/40 hover:-translate-y-1 transition-all duration-300">
+                <TiltCard key={i} className="bg-neutral-900/50 backdrop-blur-md border border-white/10 rounded-2xl p-5 text-center flex flex-col justify-center items-center">
                   <div className="flex justify-center mb-2">{stat.icon}</div>
-                  <div className="text-3xl font-black text-primary font-display">{stat.value}</div>
+                  <div className="text-3xl font-black text-primary font-display">
+                    <AnimatedCounter value={stat.value} />
+                  </div>
                   <div className="text-xs text-neutral-400 mt-1 leading-tight">{stat.label}</div>
-                </div>
+                </TiltCard>
               ))}
             </div>
 

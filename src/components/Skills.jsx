@@ -3,6 +3,20 @@ import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Responsi
 import { Cpu } from 'lucide-react';
 import TiltCard from './TiltCard';
 
+const CustomTooltip = ({ active, payload }) => {
+  if (active && payload && payload.length) {
+    return (
+      <div className="bg-neutral-950/95 backdrop-blur-md border border-primary/30 p-3 rounded-xl shadow-[0_0_20px_rgba(212,175,55,0.15)]">
+        <p className="text-xs font-semibold text-neutral-400 font-display mb-1">{payload[0].payload.subject}</p>
+        <p className="text-sm font-bold text-primary">
+          Proficiency: <span className="text-white">{payload[0].value}%</span>
+        </p>
+      </div>
+    );
+  }
+  return null;
+};
+
 const Skills = () => {
   const radarData = [
     { subject: 'Machine Learning', score: 95, fullMark: 100 },
@@ -40,20 +54,27 @@ const Skills = () => {
           <TiltCard className="bg-neutral-900/40 backdrop-blur-xl rounded-3xl border border-white/10 p-4 shadow-2xl flex flex-col justify-center h-[400px]">
             <ResponsiveContainer width="100%" height="100%" minWidth={0} minHeight={0}>
               <RadarChart cx="50%" cy="50%" outerRadius="70%" data={radarData}>
-                <PolarGrid stroke="#334155" />
-                <PolarAngleAxis dataKey="subject" tick={{ fill: '#94a3b8', fontSize: 12, fontWeight: 500 }} />
+                <defs>
+                  <filter id="gold-glow" x="-20%" y="-20%" width="140%" height="140%">
+                    <feGaussianBlur stdDeviation="4" result="blur" />
+                    <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                  </filter>
+                  <linearGradient id="gold-gradient" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stopColor="#d4af37" stopOpacity={0.5} />
+                    <stop offset="100%" stopColor="#f5e27a" stopOpacity={0.15} />
+                  </linearGradient>
+                </defs>
+                <PolarGrid stroke="#262626" />
+                <PolarAngleAxis dataKey="subject" tick={{ fill: '#a3a3a3', fontSize: 11, fontWeight: 600, fontFamily: 'Outfit' }} />
                 <PolarRadiusAxis angle={30} domain={[0, 100]} tick={false} axisLine={false} />
-                <RechartsTooltip 
-                  contentStyle={{ backgroundColor: '#0f172a', border: '1px solid #1e293b', borderRadius: '8px' }} 
-                  itemStyle={{ color: '#d4af37' }}
-                />
+                <RechartsTooltip content={<CustomTooltip />} />
                 <Radar
                   name="Proficiency"
                   dataKey="score"
                   stroke="#d4af37"
-                  strokeWidth={2}
-                  fill="#d4af37"
-                  fillOpacity={0.3}
+                  strokeWidth={2.5}
+                  fill="url(#gold-gradient)"
+                  filter="url(#gold-glow)"
                   activeDot={{ r: 6, fill: '#f5e27a', stroke: '#d4af37', strokeWidth: 2 }}
                 />
               </RadarChart>
@@ -76,7 +97,13 @@ const Skills = () => {
                   </h3>
                   <div className="flex flex-wrap gap-2">
                     {skillGroup.items.map(item => (
-                      <span key={item} className="bg-neutral-800/80 text-neutral-300 px-3 py-1 text-sm rounded-full border border-white/5">{item}</span>
+                      <motion.span
+                        key={item}
+                        whileHover={{ scale: 1.08, y: -2 }}
+                        className="bg-neutral-800/80 text-neutral-300 px-3 py-1 text-sm rounded-full border border-white/5 cursor-default hover:border-primary/60 hover:text-primary hover:shadow-[0_0_12px_rgba(212,175,55,0.35)] transition-all duration-300 font-medium"
+                      >
+                        {item}
+                      </motion.span>
                     ))}
                   </div>
                 </div>

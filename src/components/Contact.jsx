@@ -2,6 +2,7 @@ import { useRef, useState } from 'react';
 import emailjs from '@emailjs/browser';
 import { Mail, Phone, MapPin, Sparkles } from 'lucide-react';
 import { motion } from 'framer-motion';
+import Magnetic from './Magnetic';
 
 const Contact = () => {
   const formRef = useRef();
@@ -148,24 +149,26 @@ const Contact = () => {
                 />
               </div>
 
-              <button
-                type="submit"
-                disabled={status === 'sending' || status === 'sent'}
-                className="w-full bg-primary hover:bg-yellow-500 text-darker font-bold py-3.5 px-6 rounded-xl text-sm transition-all shadow-[0_0_20px_rgba(212,175,55,0.2)] hover:shadow-[0_0_30px_rgba(212,175,55,0.4)] disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 cursor-pointer mt-2"
-              >
-                {status === 'idle' && (
-                  <>Send Message <Sparkles size={16} /></>
-                )}
-                {status === 'sending' && (
-                  <>Sending Message...</>
-                )}
-                {status === 'sent' && (
-                  <>Message Sent Successfully! 🎉</>
-                )}
-                {status === 'error' && (
-                  <>Failed to Send. Try Again ⚠️</>
-                )}
-              </button>
+              <Magnetic className="w-full">
+                <button
+                  type="submit"
+                  disabled={status === 'sending' || status === 'sent'}
+                  className="w-full bg-primary hover:bg-yellow-500 text-darker font-bold py-3.5 px-6 rounded-xl text-sm transition-all shadow-[0_0_20px_rgba(212,175,55,0.2)] hover:shadow-[0_0_30px_rgba(212,175,55,0.4)] disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 cursor-pointer mt-2"
+                >
+                  {status === 'idle' && (
+                    <>Send Message <Sparkles size={16} /></>
+                  )}
+                  {status === 'sending' && (
+                    <>Sending Message...</>
+                  )}
+                  {status === 'sent' && (
+                    <>Message Sent Successfully! 🎉</>
+                  )}
+                  {status === 'error' && (
+                    <>Failed to Send. Try Again ⚠️</>
+                  )}
+                </button>
+              </Magnetic>
             </form>
           </div>
         </div>

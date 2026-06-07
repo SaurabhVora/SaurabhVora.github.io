@@ -5,8 +5,8 @@
   --color-darker: #000000; /* Pure Black */
   --color-light: #fdfbf7; /* Off-white */
 
-  --font-sans: 'Times New Roman', Times, serif;
-  --font-display: 'Times New Roman', Times, serif;
+  --font-sans: 'Plus Jakarta Sans', sans-serif;
+  --font-display: 'Outfit', sans-serif;
 }
 
 html {
@@ -86,27 +86,7 @@ body {
   -webkit-text-fill-color: transparent;
   animation: shimmer 6s infinite linear;
 }
-/* Profile Orbit Ring Animation */
-@keyframes orbit {
-  from { transform: rotate(0deg); }
-  to   { transform: rotate(360deg); }
-}
 
-.animate-orbit {
-  animation: orbit 8s infinite linear;
-  will-change: transform;
-}
-
-/* Gold Pulse Glow Animation */
-@keyframes pulse-gold {
-  0%, 100% { opacity: 0.5; transform: scale(1); }
-  50%       { opacity: 0.85; transform: scale(1.08); }
-}
-
-.animate-pulse-gold {
-  animation: pulse-gold 3s ease-in-out infinite;
-  will-change: transform, opacity;
-}
 
 
 

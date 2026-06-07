@@ -1,7 +1,9 @@
 import { motion, useMotionValue, useTransform, useSpring } from 'framer-motion';
 import { Download, Mail, Code2, BrainCircuit, Target } from 'lucide-react';
 import { FaGithub, FaLinkedin } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 import useScrambleText from '../hooks/useScrambleText';
+import Magnetic from './Magnetic';
 
 const Hero = () => {
   const scrambledSaurabh = useScrambleText("Saurabh", 800, 150);
@@ -140,63 +142,39 @@ const Hero = () => {
           </motion.p>
 
           <div className="flex flex-col sm:flex-row gap-4 mb-8">
-            <a href="#projects" className="bg-primary hover:bg-yellow-500 text-darker font-bold px-8 py-3 rounded-full transition-all shadow-[0_0_20px_rgba(212,175,55,0.3)] hover:shadow-[0_0_30px_rgba(212,175,55,0.5)] text-center">
-              View My Work
-            </a>
-            <a href="/pdf/Saurabh_Vora_Resume.pdf" target="_blank" rel="noopener noreferrer" className="bg-neutral-800/80 hover:bg-neutral-700 text-white border border-neutral-700 px-8 py-3 rounded-full font-medium transition-all flex items-center justify-center gap-2">
-              <Download size={18} /> Download CV
-            </a>
+            <Magnetic>
+              <Link to="/projects" className="bg-primary hover:bg-yellow-500 text-darker font-bold px-8 py-3 rounded-full transition-all shadow-[0_0_20px_rgba(212,175,55,0.3)] hover:shadow-[0_0_30px_rgba(212,175,55,0.5)] text-center block w-full sm:w-auto">
+                View My Work
+              </Link>
+            </Magnetic>
+            <Magnetic>
+              <a href="/pdf/Saurabh_Vora_Resume.pdf" target="_blank" rel="noopener noreferrer" className="bg-neutral-800/80 hover:bg-neutral-700 text-white border border-neutral-700 px-8 py-3 rounded-full font-medium transition-all flex items-center justify-center gap-2 w-full sm:w-auto">
+                <Download size={18} /> Download CV
+              </a>
+            </Magnetic>
           </div>
           <div className="flex gap-4 mb-8">
-            <a href="https://www.linkedin.com/in/saurabh-vora-971037257/" target="_blank" rel="noreferrer" className="w-10 h-10 rounded-full bg-neutral-800 flex items-center justify-center hover:bg-[#0077b5] hover:text-white transition-all text-neutral-400">
-              <FaLinkedin size={20} />
-            </a>
-            <a href="https://github.com/SaurabhVora" target="_blank" rel="noreferrer" className="w-10 h-10 rounded-full bg-neutral-800 flex items-center justify-center hover:bg-white hover:text-black transition-all text-neutral-400">
-              <FaGithub size={20} />
-            </a>
-            <a href="mailto:saurabhvora27@gmail.com" className="w-10 h-10 rounded-full bg-neutral-800 flex items-center justify-center hover:bg-primary hover:text-white transition-all text-neutral-400">
-              <Mail size={20} />
-            </a>
+            <Magnetic>
+              <a href="https://www.linkedin.com/in/saurabh-vora-971037257/" target="_blank" rel="noreferrer" className="w-10 h-10 rounded-full bg-neutral-800 flex items-center justify-center hover:bg-[#0077b5] hover:text-white transition-all text-neutral-400">
+                <FaLinkedin size={20} />
+              </a>
+            </Magnetic>
+            <Magnetic>
+              <a href="https://github.com/SaurabhVora" target="_blank" rel="noreferrer" className="w-10 h-10 rounded-full bg-neutral-800 flex items-center justify-center hover:bg-white hover:text-black transition-all text-neutral-400">
+                <FaGithub size={20} />
+              </a>
+            </Magnetic>
+            <Magnetic>
+              <a href="mailto:saurabhvora27@gmail.com" className="w-10 h-10 rounded-full bg-neutral-800 flex items-center justify-center hover:bg-primary hover:text-white transition-all text-neutral-400">
+                <Mail size={20} />
+              </a>
+            </Magnetic>
           </div>
         </motion.div>
 
-        {/* Right Column — Circular Ring Portrait */}
+        {/* Right Column — Portrait */}
         <div className="relative flex justify-center mt-12 md:mt-0 items-center h-[420px]">
           
-          {/* Radial gold aura glow */}
-          <div
-            className="absolute inset-0 rounded-full animate-pulse-gold pointer-events-none"
-            style={{
-              background: "radial-gradient(circle, rgba(212,175,55,0.22) 0%, rgba(212,175,55,0.07) 55%, transparent 75%)",
-              transform: "scale(1.3)",
-              zIndex: 0,
-            }}
-          />
-
-          {/* Slow rotating dashed orbit ring */}
-          <div
-            className="absolute rounded-full animate-orbit pointer-events-none"
-            style={{
-              inset: "-18px",
-              zIndex: 1,
-              border: "1.5px dashed rgba(212,175,55,0.4)",
-              borderRadius: "9999px",
-              boxShadow: "0 0 14px rgba(212,175,55,0.18)",
-            }}
-          />
-
-          {/* Second counter-orbit ring (slower, reversed) */}
-          <div
-            className="absolute rounded-full pointer-events-none"
-            style={{
-              inset: "-32px",
-              zIndex: 1,
-              border: "1px dashed rgba(212,175,55,0.18)",
-              borderRadius: "9999px",
-              animation: "orbit 14s infinite linear reverse",
-            }}
-          />
-
           {/* Main 3D tilt wrapper */}
           <motion.div
             className="relative z-10 cursor-pointer w-80 h-80 md:w-96 md:h-96"

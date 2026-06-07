@@ -58,7 +58,13 @@ const Projects = () => {
                   <h3 className="text-xl font-bold text-white mb-3 group-hover:text-primary transition-colors font-display">{project.title}</h3>
                   <div className="flex flex-wrap gap-1.5 mb-4">
                     {project.tech.map(t => (
-                      <span key={t} className="text-[10px] font-bold text-primary bg-primary/10 px-2 py-0.5 rounded border border-primary/25">{t}</span>
+                      <motion.span 
+                        key={t} 
+                        whileHover={{ scale: 1.08, y: -1 }}
+                        className="text-[10px] font-bold text-primary bg-primary/10 px-2 py-0.5 rounded border border-primary/25 cursor-default hover:bg-primary/20 hover:border-primary/50 transition-all duration-300"
+                      >
+                        {t}
+                      </motion.span>
                     ))}
                   </div>
                   <p className="text-neutral-400 mb-4 text-xs leading-relaxed line-clamp-4">{project.description}</p>
