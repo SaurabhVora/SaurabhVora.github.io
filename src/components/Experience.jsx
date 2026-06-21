@@ -71,9 +71,9 @@ const TimelineBullet = () => (
         scale: [0.8, 1.2, 1],
         opacity: 1,
         boxShadow: [
-          "0 0 0 0 rgba(212, 175, 55, 0)",
-          "0 0 0 8px rgba(212, 175, 55, 0.2)",
-          "0 0 0 0 rgba(212, 175, 55, 0)"
+          "0 0 0 0 rgba(255, 255, 255, 0)",
+          "0 0 0 8px rgba(255, 255, 255, 0.25)",
+          "0 0 0 0 rgba(255, 255, 255, 0)"
         ]
       }}
       viewport={{ once: false, margin: "-100px" }}
@@ -146,7 +146,7 @@ const Experience = () => {
                     className="relative"
                   >
                     <TimelineBullet />
-                    <div className="bg-neutral-900/40 backdrop-blur-md border border-white/10 p-6 rounded-2xl hover:-translate-y-2 hover:border-primary/50 hover:shadow-[0_0_30px_rgba(212,175,55,0.15)] hover:bg-neutral-800/50 transition-all duration-300">
+                    <div className="bg-neutral-900/40 backdrop-blur-md border border-white/10 p-6 rounded-2xl hover:-translate-y-2 hover:border-primary/50 hover:shadow-[0_0_30px_rgba(255,255,255,0.08)] hover:bg-neutral-800/50 transition-all duration-300">
                       <h3 className="text-xl font-bold text-white font-display transition-colors">{item.title}</h3>
                       <div className="text-primary text-sm font-semibold mb-3">{item.company} • {item.period}</div>
                       <p className="text-neutral-400 text-sm leading-relaxed">
@@ -194,7 +194,7 @@ const Experience = () => {
                     className="relative"
                   >
                     <TimelineBullet />
-                    <div className="bg-neutral-900/40 backdrop-blur-md border border-white/10 p-6 rounded-2xl hover:-translate-y-2 hover:border-primary/50 hover:shadow-[0_0_30px_rgba(212,175,55,0.15)] hover:bg-neutral-800/50 transition-all duration-300">
+                    <div className="bg-neutral-900/40 backdrop-blur-md border border-white/10 p-6 rounded-2xl hover:-translate-y-2 hover:border-primary/50 hover:shadow-[0_0_30px_rgba(255,255,255,0.08)] hover:bg-neutral-800/50 transition-all duration-300">
                       <h3 className="text-xl font-bold text-white font-display">{item.title}</h3>
                       <div className="text-neutral-300 text-sm font-semibold mb-2">{item.school} • {item.period}</div>
                       <div className="text-primary text-sm font-bold">{item.gpa}</div>

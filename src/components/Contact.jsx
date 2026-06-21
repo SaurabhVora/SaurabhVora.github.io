@@ -153,7 +153,7 @@ const Contact = () => {
                 <button
                   type="submit"
                   disabled={status === 'sending' || status === 'sent'}
-                  className="w-full bg-primary hover:bg-yellow-500 text-darker font-bold py-3.5 px-6 rounded-xl text-sm transition-all shadow-[0_0_20px_rgba(212,175,55,0.2)] hover:shadow-[0_0_30px_rgba(212,175,55,0.4)] disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 cursor-pointer mt-2"
+                  className="w-full bg-white hover:bg-neutral-200 text-black font-bold py-3.5 px-6 rounded-xl text-sm transition-all shadow-[0_0_20px_rgba(255,255,255,0.15)] hover:shadow-[0_0_30px_rgba(255,255,255,0.3)] disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 cursor-pointer mt-2"
                 >
                   {status === 'idle' && (
                     <>Send Message <Sparkles size={16} /></>

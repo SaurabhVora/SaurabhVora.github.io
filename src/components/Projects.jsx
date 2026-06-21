@@ -47,7 +47,7 @@ const Projects = () => {
           {projects.map((project, idx) => (
             <TiltCard 
               key={idx} 
-              className="group relative bg-neutral-900/40 backdrop-blur-md rounded-2xl overflow-hidden border border-white/10 hover:border-primary/50 hover:shadow-[0_0_30px_rgba(212,175,55,0.15)] hover:bg-neutral-800/50 transition-[border-color,background-color,box-shadow] duration-300 flex flex-col justify-between"
+              className="group relative bg-neutral-900/40 backdrop-blur-md rounded-2xl overflow-hidden border border-white/10 hover:border-primary/50 hover:shadow-[0_0_30px_rgba(255,255,255,0.08)] hover:bg-neutral-800/50 transition-[border-color,background-color,box-shadow] duration-300 flex flex-col justify-between"
             >
               <div>
                 <div className="h-48 bg-neutral-800 relative overflow-hidden flex items-center justify-center">

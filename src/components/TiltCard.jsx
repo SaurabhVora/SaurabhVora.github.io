@@ -85,7 +85,7 @@ const TiltCard = ({ children, className = "", tiltMax = 12 }) => {
           className="absolute inset-0 transition-opacity duration-300 pointer-events-none -z-10"
           style={{
             opacity: isHovered ? 1 : 0,
-            background: `radial-gradient(250px circle at ${mousePos.x}px ${mousePos.y}px, rgba(212, 175, 55, 0.45), transparent 80%)`,
+            background: `radial-gradient(250px circle at ${mousePos.x}px ${mousePos.y}px, rgba(255, 255, 255, 0.25), transparent 80%)`,
           }}
         />
         
@@ -102,7 +102,7 @@ const TiltCard = ({ children, className = "", tiltMax = 12 }) => {
             className="absolute inset-0 transition-opacity duration-300 pointer-events-none"
             style={{
               opacity: isHovered ? 1 : 0,
-              background: `radial-gradient(200px circle at ${mousePos.x}px ${mousePos.y}px, rgba(212, 175, 55, 0.08), transparent 80%)`,
+              background: `radial-gradient(200px circle at ${mousePos.x}px ${mousePos.y}px, rgba(255, 255, 255, 0.05), transparent 80%)`,
             }}
           />
           <div className="relative z-10 w-full h-full flex flex-col justify-between">

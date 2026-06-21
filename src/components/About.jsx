@@ -1,6 +1,5 @@
 import { Download, Cpu, Briefcase, FolderGit2, BrainCircuit, Zap, Globe } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
 import TiltCard from './TiltCard';
 import AnimatedCounter from './AnimatedCounter';
 import Magnetic from './Magnetic';
@@ -64,7 +63,7 @@ const About = () => {
             </p>
             <div className="flex flex-wrap gap-3 pt-2">
               <Magnetic>
-                <Link to="/projects" className="bg-primary hover:bg-yellow-500 text-darker font-bold px-6 py-2.5 rounded-full text-sm transition-all shadow-[0_0_20px_rgba(212,175,55,0.3)] hover:shadow-[0_0_30px_rgba(212,175,55,0.5)]">View My Work</Link>
+                <a href="#projects" className="bg-white hover:bg-neutral-200 text-black font-bold px-6 py-2.5 rounded-full text-sm transition-all shadow-[0_0_20px_rgba(255,255,255,0.1)] hover:shadow-[0_0_30px_rgba(255,255,255,0.2)]">View My Work</a>
               </Magnetic>
               <Magnetic>
                 <a href="/pdf/Saurabh_Vora_Resume.pdf" target="_blank" rel="noopener noreferrer" className="border border-primary/50 text-primary hover:bg-primary/10 px-6 py-2.5 rounded-full text-sm font-medium transition-all flex items-center gap-2">

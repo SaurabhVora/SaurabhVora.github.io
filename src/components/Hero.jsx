@@ -1,259 +1,171 @@
-import { motion, useMotionValue, useTransform, useSpring } from 'framer-motion';
-import { Download, Mail, Code2, BrainCircuit, Target } from 'lucide-react';
-import { FaGithub, FaLinkedin } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
-import useScrambleText from '../hooks/useScrambleText';
-import Magnetic from './Magnetic';
+import { useState, useEffect } from 'react';
+import { motion, useMotionValue, useTransform, useSpring, AnimatePresence } from 'framer-motion';
+import { BrainCircuit, Target, ArrowDown, Download } from 'lucide-react';
 
 const Hero = () => {
-  const scrambledSaurabh = useScrambleText("Saurabh", 800, 150);
-  const scrambledVora = useScrambleText("Vora", 800, 350);
+  const [skillIndex, setSkillIndex] = useState(0);
+  const skills = ["Deep Learning", "Computer Vision", "LLMs", "Data Science"];
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setSkillIndex((prev) => (prev + 1) % skills.length);
+    }, 3000);
+    return () => clearInterval(interval);
+  }, []);
 
   const x = useMotionValue(0);
   const y = useMotionValue(0);
 
-  const rotateX = useTransform(y, [-200, 200], [12, -12]);
-  const rotateY = useTransform(x, [-200, 200], [-12, 12]);
+  // Use window.innerWidth safely
+  const getWindowWidth = () => typeof window !== 'undefined' ? window.innerWidth : 1000;
+  const getWindowHeight = () => typeof window !== 'undefined' ? window.innerHeight : 800;
 
-  const springX = useSpring(rotateX, { stiffness: 120, damping: 25 });
-  const springY = useSpring(rotateY, { stiffness: 120, damping: 25 });
+  const parallaxX = useTransform(x, [-getWindowWidth() / 2, getWindowWidth() / 2], [-20, 20]);
+  const parallaxY = useTransform(y, [-getWindowHeight() / 2, getWindowHeight() / 2], [-20, 20]);
+
+  const springX = useSpring(parallaxX, { stiffness: 50, damping: 20 });
+  const springY = useSpring(parallaxY, { stiffness: 50, damping: 20 });
 
   const handleMouseMove = (event) => {
-    const rect = event.currentTarget.getBoundingClientRect();
-    const width = rect.width;
-    const height = rect.height;
-    const mouseX = event.clientX - rect.left - width / 2;
-    const mouseY = event.clientY - rect.top - height / 2;
+    const mouseX = event.clientX - window.innerWidth / 2;
+    const mouseY = event.clientY - window.innerHeight / 2;
     x.set(mouseX);
     y.set(mouseY);
   };
 
-  const handleMouseLeave = () => {
-    x.set(0);
-    y.set(0);
+  const handleSmoothScroll = (e, href) => {
+    e.preventDefault();
+    const element = document.querySelector(href);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
   };
 
-  const bioText = "Between raw data and real-world impact lies the space where I build. From semantic search engines to personalized learning platforms, my work revolves around intelligence, precision, and purpose. Through Python, LLMs, and full-stack delivery — I turn ideas into systems that actually work.";
-  const bioWords = bioText.split(" ");
-
   return (
-    <section id="hero" className="min-h-screen flex items-center pt-20 relative overflow-hidden bg-transparent">
-
-      {/* Hero Background Video (Veo AI Generated Character) */}
-      <video
-        autoPlay
-        muted
-        loop
-        playsInline
-        className="absolute inset-0 w-full h-full object-cover opacity-20 -z-10 select-none pointer-events-none transition-opacity duration-1000"
-        src="/Character_sitting_at_workstation_202606011152.mp4"
-      />
-
-      {/* Pulsating Studio Vignette Background */}
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-0">
-        <motion.div 
-          animate={{ 
-            scale: [1, 1.15, 1], 
-            opacity: [0.35, 0.55, 0.35] 
-          }} 
-          transition={{ 
-            repeat: Infinity, 
-            duration: 10, 
-            ease: "easeInOut" 
-          }} 
-          className="w-[500px] h-[500px] md:w-[700px] md:h-[700px] bg-primary/8 rounded-full blur-[140px]" 
+    <section 
+      id="hero" 
+      className="min-h-screen w-full flex items-center relative overflow-hidden bg-neutral-950"
+      onMouseMove={handleMouseMove}
+    >
+      {/* Full Screen Parallax Image */}
+      <motion.div 
+        className="absolute z-0 h-[110vh] -top-[5vh] -right-[5vw] w-[140vw] md:w-[100vw] lg:w-[85vw]"
+        style={{
+          x: springX,
+          y: springY,
+          WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 15%, black 100%)',
+          maskImage: 'linear-gradient(to right, transparent 0%, black 15%, black 100%)'
+        }}
+      >
+        <img
+          src="/Gemini_Generated_Image_4jn5r04jn5r04jn5.png"
+          alt="Saurabh Vora"
+          className="w-full h-full object-cover object-[center_10%] lg:object-[center_15%] filter grayscale contrast-110 opacity-100"
         />
-      </div>
+        {/* Gradients to blend image into background */}
+        <div className="absolute inset-0 bg-gradient-to-r from-neutral-950 from-5% via-neutral-950/80 via-25% to-transparent to-60%" />
+        <div className="absolute inset-0 bg-gradient-to-t from-neutral-950 via-transparent via-30% to-neutral-950/30" />
+      </motion.div>
 
+      {/* Floating Badges (Right Side) */}
+      <motion.div
+        className="hidden lg:flex absolute top-1/4 right-[10%] bg-white/5 backdrop-blur-xl border border-white/10 p-4 rounded-2xl shadow-2xl z-20 items-center gap-4"
+        animate={{ y: [0, -15, 0] }}
+        transition={{ repeat: Infinity, duration: 5, ease: "easeInOut" }}
+      >
+        <div className="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center text-white border border-white/10">
+          <BrainCircuit size={24} />
+        </div>
+        <div>
+          <p className="text-[11px] text-neutral-400 font-semibold tracking-wider uppercase">Role</p>
+          <p className="text-sm font-bold text-white">AI/ML Engineer</p>
+        </div>
+      </motion.div>
 
+      <motion.div
+        className="hidden lg:flex absolute bottom-1/4 right-[20%] bg-white/5 backdrop-blur-xl border border-white/10 p-4 rounded-2xl shadow-2xl z-20 items-center gap-4"
+        animate={{ y: [0, 15, 0] }}
+        transition={{ repeat: Infinity, duration: 6, ease: "easeInOut", delay: 1 }}
+      >
+        <div className="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center text-white border border-white/10">
+          <Target size={24} />
+        </div>
+        <div>
+          <p className="text-[11px] text-neutral-400 font-semibold tracking-wider uppercase">Top Model</p>
+          <p className="text-sm font-bold text-white">82% Accuracy</p>
+        </div>
+      </motion.div>
 
-      <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center relative z-10 pointer-events-none w-full">
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} className="pointer-events-auto">
-          
-
-
-          {/* Pre-header Mask Line Reveal */}
-          <div className="overflow-hidden flex items-center gap-3 mb-3">
-            <motion.span 
-              className="h-[1px] bg-primary/40 block" 
-              initial={{ width: 0 }}
-              animate={{ width: 45 }}
-              transition={{ duration: 0.6, ease: "easeOut" }}
-            />
-            <motion.h2 
-              className="text-primary font-bold tracking-[0.2em] font-display text-xs md:text-sm leading-none"
-              initial={{ y: "100%", opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: 0.05 }}
-            >
-              HELLO, I'M
-            </motion.h2>
-          </div>
-
-          {/* Matrix Decoder Scramble + Gold Shimmer Name */}
-          <h1 className="text-5xl md:text-7xl font-extrabold mb-6 leading-tight flex flex-col tracking-wide font-display">
-            <span className="shimmer-text py-1 select-none">
-              {scrambledSaurabh}
-            </span>
-            <span className="shimmer-text py-1 select-none">
-              {scrambledVora}
-            </span>
-          </h1>
-
+      {/* Content Container (Left Side) */}
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 mt-16 md:mt-0">
+        <div className="max-w-2xl">
           <motion.div 
-            className="overflow-hidden whitespace-nowrap mb-6"
-            initial={{ width: 0 }}
-            animate={{ width: "100%" }}
-            transition={{ duration: 1.5, ease: "easeOut", delay: 0.5 }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
           >
-            <h3 className="text-xl md:text-2xl text-neutral-300 flex items-center gap-2 w-max pr-4 border-r-2 border-primary animate-pulse">
-              <Code2 className="text-primary flex-shrink-0" /> Data Science & AI/ML Developer
-            </h3>
-          </motion.div>
-
-          {/* Word-by-Word Bio Paragraph Stagger Spring */}
-          <motion.p 
-            className="text-neutral-400 mb-8 max-w-lg leading-relaxed flex flex-wrap gap-x-1.5 gap-y-1"
-            variants={{
-              hidden: { opacity: 0 },
-              visible: {
-                opacity: 1,
-                transition: {
-                  staggerChildren: 0.02,
-                  delayChildren: 0.7
-                }
-              }
-            }}
-            initial="hidden"
-            animate="visible"
-          >
-            {bioWords.map((word, index) => (
-              <motion.span
-                key={index}
-                className="inline-block"
-                variants={{
-                  hidden: { opacity: 0, y: 8 },
-                  visible: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 140, damping: 20 } }
-                }}
-              >
-                {word}
-              </motion.span>
-            ))}
-          </motion.p>
-
-          <div className="flex flex-col sm:flex-row gap-4 mb-8">
-            <Magnetic>
-              <Link to="/projects" className="bg-primary hover:bg-yellow-500 text-darker font-bold px-8 py-3 rounded-full transition-all shadow-[0_0_20px_rgba(212,175,55,0.3)] hover:shadow-[0_0_30px_rgba(212,175,55,0.5)] text-center block w-full sm:w-auto">
-                View My Work
-              </Link>
-            </Magnetic>
-            <Magnetic>
-              <a href="/pdf/Saurabh_Vora_Resume.pdf" target="_blank" rel="noopener noreferrer" className="bg-neutral-800/80 hover:bg-neutral-700 text-white border border-neutral-700 px-8 py-3 rounded-full font-medium transition-all flex items-center justify-center gap-2 w-full sm:w-auto">
-                <Download size={18} /> Download CV
-              </a>
-            </Magnetic>
-          </div>
-          <div className="flex gap-4 mb-8">
-            <Magnetic>
-              <a href="https://www.linkedin.com/in/saurabh-vora-971037257/" target="_blank" rel="noreferrer" className="w-10 h-10 rounded-full bg-neutral-800 flex items-center justify-center hover:bg-[#0077b5] hover:text-white transition-all text-neutral-400">
-                <FaLinkedin size={20} />
-              </a>
-            </Magnetic>
-            <Magnetic>
-              <a href="https://github.com/SaurabhVora" target="_blank" rel="noreferrer" className="w-10 h-10 rounded-full bg-neutral-800 flex items-center justify-center hover:bg-white hover:text-black transition-all text-neutral-400">
-                <FaGithub size={20} />
-              </a>
-            </Magnetic>
-            <Magnetic>
-              <a href="mailto:saurabhvora27@gmail.com" className="w-10 h-10 rounded-full bg-neutral-800 flex items-center justify-center hover:bg-primary hover:text-white transition-all text-neutral-400">
-                <Mail size={20} />
-              </a>
-            </Magnetic>
-          </div>
-        </motion.div>
-
-        {/* Right Column — Portrait */}
-        <div className="relative flex justify-center mt-12 md:mt-0 items-center h-[420px]">
-          
-          {/* Main 3D tilt wrapper */}
-          <motion.div
-            className="relative z-10 cursor-pointer w-80 h-80 md:w-96 md:h-96"
-            style={{
-              rotateX: springX,
-              rotateY: springY,
-              transformStyle: "preserve-3d",
-            }}
-            onMouseMove={handleMouseMove}
-            onMouseLeave={handleMouseLeave}
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-          >
-            {/* Gold gradient border ring */}
-            <div
-              className="w-full h-full rounded-full p-[3px]"
-              style={{
-                background: "linear-gradient(135deg, #d4af37 0%, #f5e27a 35%, #a07820 65%, #d4af37 100%)",
-                boxShadow: "0 0 45px rgba(212,175,55,0.4), 0 0 90px rgba(212,175,55,0.15)",
-                transform: "translateZ(0px)",
-              }}
-            >
-              {/* Frosted glass inner circle */}
-              <div
-                className="w-full h-full rounded-full overflow-hidden relative"
-                style={{
-                  background: "rgba(10,10,10,0.6)",
-                  backdropFilter: "blur(4px)",
-                }}
-              >
-                <img
-                  src="/saurabh new profile image.png"
-                  alt="Saurabh Vora"
-                  className="w-full h-full object-cover select-none pointer-events-none"
-                  style={{ objectPosition: "center 35%" }}
-                />
-                {/* Inner bottom vignette */}
-                <div
-                  className="absolute inset-0 rounded-full pointer-events-none"
-                  style={{
-                    background: "linear-gradient(to top, rgba(0,0,0,0.5) 0%, transparent 45%)",
-                  }}
-                />
+            <p className="text-primary font-bold tracking-[0.2em] uppercase mb-4 text-sm md:text-base">Hello, I'm</p>
+            <h1 className="text-5xl md:text-7xl lg:text-[5.5rem] font-black text-white font-display leading-[1.1] mb-6 tracking-tight">
+              Saurabh <br/>Vora.
+            </h1>
+            
+            {/* Dynamic Text */}
+            <div className="text-xl md:text-3xl text-neutral-300 font-medium mb-8 flex flex-col md:flex-row items-start md:items-center gap-2 min-h-[60px] md:min-h-0">
+              <span>Building systems with</span>
+              <div className="relative inline-block w-[250px] h-[30px] md:h-[40px] overflow-hidden translate-y-1">
+                <AnimatePresence mode="wait">
+                  <motion.span
+                    key={skillIndex}
+                    initial={{ y: 20, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    exit={{ y: -20, opacity: 0 }}
+                    transition={{ duration: 0.3 }}
+                    className="absolute left-0 text-primary font-bold whitespace-nowrap"
+                  >
+                    {skills[skillIndex]}
+                  </motion.span>
+                </AnimatePresence>
               </div>
             </div>
-          </motion.div>
 
-          {/* Floating Badge — Role */}
-          <motion.div
-            animate={{ y: [0, -10, 0] }}
-            transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
-            className="absolute top-6 -left-2 md:-left-10 bg-neutral-900/80 backdrop-blur-md border border-white/10 p-3 rounded-2xl shadow-xl z-20 flex items-center gap-3 select-none pointer-events-none"
-          >
-            <div className="w-10 h-10 bg-primary/20 rounded-full flex items-center justify-center text-primary">
-              <BrainCircuit size={20} />
-            </div>
-            <div>
-              <p className="text-xs text-neutral-400 font-medium">Role</p>
-              <p className="text-sm font-bold text-white">AI/ML Engineer</p>
-            </div>
-          </motion.div>
+            <p className="text-neutral-400 text-lg leading-relaxed mb-10 max-w-lg">
+              I bridge the gap between machine learning models and scalable products. Let's turn raw data into impact.
+            </p>
 
-          {/* Floating Badge — Accuracy */}
-          <motion.div
-            animate={{ y: [0, 10, 0] }}
-            transition={{ repeat: Infinity, duration: 5, ease: "easeInOut", delay: 1 }}
-            className="absolute bottom-6 -right-2 md:-right-10 bg-neutral-900/80 backdrop-blur-md border border-white/10 p-3 rounded-2xl shadow-xl z-20 flex items-center gap-3 select-none pointer-events-none"
-          >
-            <div className="w-10 h-10 bg-emerald-500/20 rounded-full flex items-center justify-center text-emerald-400">
-              <Target size={20} />
-            </div>
-            <div>
-              <p className="text-xs text-neutral-400 font-medium">Top Model</p>
-              <p className="text-sm font-bold text-white">82% Accuracy</p>
+            {/* CTAs */}
+            <div className="flex flex-wrap items-center gap-4">
+              <a 
+                href="#projects" 
+                onClick={(e) => handleSmoothScroll(e, '#projects')}
+                className="bg-primary hover:bg-white text-black font-bold px-8 py-4 rounded-full transition-all duration-300 shadow-[0_0_20px_rgba(255,255,255,0.15)] hover:shadow-[0_0_40px_rgba(255,255,255,0.3)] flex items-center gap-2 group"
+              >
+                View My Work
+                <ArrowDown size={18} className="group-hover:translate-y-1 transition-transform" />
+              </a>
+              <a 
+                href="/pdf/Saurabh_Vora_Resume.pdf" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="bg-white/5 hover:bg-white/10 backdrop-blur-md border border-white/10 text-white font-semibold px-8 py-4 rounded-full transition-all duration-300 flex items-center gap-2 hover:border-white/20"
+              >
+                Download CV
+                <Download size={18} />
+              </a>
             </div>
           </motion.div>
         </div>
+      </div>
 
+      {/* Scroll Indicator */}
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-2 text-neutral-500">
+        <span className="text-[10px] tracking-[0.2em] uppercase font-semibold">Scroll</span>
+        <div className="w-[1px] h-10 bg-neutral-800 relative overflow-hidden">
+          <motion.div 
+            className="w-full h-1/2 bg-primary absolute top-0"
+            animate={{ y: [0, 40, 0] }}
+            transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+          />
+        </div>
       </div>
     </section>
   );

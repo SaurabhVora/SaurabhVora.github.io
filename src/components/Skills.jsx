@@ -6,10 +6,10 @@ import TiltCard from './TiltCard';
 const CustomTooltip = ({ active, payload }) => {
   if (active && payload && payload.length) {
     return (
-      <div className="bg-neutral-950/95 backdrop-blur-md border border-primary/30 p-3 rounded-xl shadow-[0_0_20px_rgba(212,175,55,0.15)]">
+      <div className="bg-neutral-950/95 backdrop-blur-md border border-white/25 p-3 rounded-xl shadow-[0_0_20px_rgba(255,255,255,0.08)]">
         <p className="text-xs font-semibold text-neutral-400 font-display mb-1">{payload[0].payload.subject}</p>
-        <p className="text-sm font-bold text-primary">
-          Proficiency: <span className="text-white">{payload[0].value}%</span>
+        <p className="text-sm font-bold text-white">
+          Proficiency: <span className="text-neutral-300">{payload[0].value}%</span>
         </p>
       </div>
     );
@@ -55,13 +55,13 @@ const Skills = () => {
             <ResponsiveContainer width="100%" height="100%" minWidth={0} minHeight={0}>
               <RadarChart cx="50%" cy="50%" outerRadius="70%" data={radarData}>
                 <defs>
-                  <filter id="gold-glow" x="-20%" y="-20%" width="140%" height="140%">
+                  <filter id="white-glow" x="-20%" y="-20%" width="140%" height="140%">
                     <feGaussianBlur stdDeviation="4" result="blur" />
                     <feComposite in="SourceGraphic" in2="blur" operator="over" />
                   </filter>
-                  <linearGradient id="gold-gradient" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor="#d4af37" stopOpacity={0.5} />
-                    <stop offset="100%" stopColor="#f5e27a" stopOpacity={0.15} />
+                  <linearGradient id="white-gradient" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stopColor="#ffffff" stopOpacity={0.4} />
+                    <stop offset="100%" stopColor="#a3a3a3" stopOpacity={0.1} />
                   </linearGradient>
                 </defs>
                 <PolarGrid stroke="#262626" />
@@ -71,11 +71,11 @@ const Skills = () => {
                 <Radar
                   name="Proficiency"
                   dataKey="score"
-                  stroke="#d4af37"
-                  strokeWidth={2.5}
-                  fill="url(#gold-gradient)"
-                  filter="url(#gold-glow)"
-                  activeDot={{ r: 6, fill: '#f5e27a', stroke: '#d4af37', strokeWidth: 2 }}
+                  stroke="#ffffff"
+                  strokeWidth={2}
+                  fill="url(#white-gradient)"
+                  filter="url(#white-glow)"
+                  activeDot={{ r: 6, fill: '#ffffff', stroke: '#e5e5e5', strokeWidth: 1.5 }}
                 />
               </RadarChart>
             </ResponsiveContainer>
@@ -86,12 +86,12 @@ const Skills = () => {
             {skills.map((skillGroup, idx) => (
               <TiltCard 
                 key={idx} 
-                className="bg-neutral-900/40 backdrop-blur-md p-6 rounded-2xl border border-white/10 hover:border-primary/50 hover:shadow-[0_0_30px_rgba(212,175,55,0.15)] hover:bg-neutral-800/50 transition-[border-color,background-color,box-shadow] duration-300 flex flex-col justify-between"
+                className="bg-neutral-900/40 backdrop-blur-md p-6 rounded-2xl border border-white/10 hover:border-white/40 hover:shadow-[0_0_30px_rgba(255,255,255,0.08)] hover:bg-neutral-800/50 transition-[border-color,background-color,box-shadow] duration-300 flex flex-col justify-between"
               >
                 <div>
                   <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2 font-display">
                     <motion.div animate={{ y: [0, -6, 0] }} transition={{ repeat: Infinity, duration: 2.5, ease: "easeInOut", delay: idx * 0.2 }}>
-                      <Cpu className="text-primary" size={20} />
+                      <Cpu className="text-white" size={20} />
                     </motion.div>
                     {skillGroup.category}
                   </h3>
@@ -100,7 +100,7 @@ const Skills = () => {
                       <motion.span
                         key={item}
                         whileHover={{ scale: 1.08, y: -2 }}
-                        className="bg-neutral-800/80 text-neutral-300 px-3 py-1 text-sm rounded-full border border-white/5 cursor-default hover:border-primary/60 hover:text-primary hover:shadow-[0_0_12px_rgba(212,175,55,0.35)] transition-all duration-300 font-medium"
+                        className="bg-neutral-800/80 text-neutral-300 px-3 py-1 text-sm rounded-full border border-white/5 cursor-default hover:border-white/40 hover:text-white hover:shadow-[0_0_12px_rgba(255,255,255,0.12)] transition-all duration-300 font-medium"
                       >
                         {item}
                       </motion.span>

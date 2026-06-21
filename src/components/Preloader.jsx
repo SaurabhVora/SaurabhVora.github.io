@@ -42,7 +42,7 @@ const Preloader = ({ onComplete }) => {
           <img 
             src="/new logo.png" 
             alt="Saurabh Vora Monogram" 
-            className="w-full h-full object-contain filter drop-shadow-[0_0_15px_rgba(212,175,55,0.15)]"
+            className="w-full h-full object-contain filter drop-shadow-[0_0_15px_rgba(255,255,255,0.1)]"
           />
         </motion.div>
 
@@ -53,7 +53,7 @@ const Preloader = ({ onComplete }) => {
               initial={{ width: "0%" }}
               animate={{ width: `${progress}%` }}
               transition={{ ease: "easeOut", duration: 0.15 }}
-              className="absolute top-0 bottom-0 left-0 bg-primary shadow-[0_0_8px_rgba(212,175,55,0.5)]"
+              className="absolute top-0 bottom-0 left-0 bg-primary shadow-[0_0_8px_rgba(255,255,255,0.5)]"
             />
           </div>
           <span className="text-[10px] text-neutral-500 font-medium tracking-widest font-display">
