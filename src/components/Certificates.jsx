@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { ExternalLink, Award, Briefcase, BrainCircuit, Cpu } from 'lucide-react';
+import LiquidGlass from './LiquidGlass';
 
 const Certificates = () => {
   const certifications = [
@@ -74,29 +75,31 @@ const Certificates = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ type: "spring", stiffness: 100, delay: idx * 0.1 }}
-              className={`group relative bg-gradient-to-br ${cert.color} backdrop-blur-md rounded-2xl p-6 border border-white/10 flex flex-col justify-between h-[230px] transition-all duration-300 ${cert.glow}`}
+              className="group relative flex flex-col justify-between h-[230px] transition-all duration-300"
             >
-              <div>
-                <div className="flex justify-between items-start mb-4">
-                  <div className="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                    {cert.icon}
+              <LiquidGlass className="p-6 flex flex-col justify-between h-full">
+                <div>
+                  <div className="flex justify-between items-start mb-4">
+                    <div className="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                      {cert.icon}
+                    </div>
+                    <span className={`text-xs font-bold px-2.5 py-1 rounded-full bg-white/5 border border-white/5 ${cert.brandColor}`}>
+                      {cert.issuer}
+                    </span>
                   </div>
-                  <span className={`text-xs font-bold px-2.5 py-1 rounded-full bg-white/5 border border-white/5 ${cert.brandColor}`}>
-                    {cert.issuer}
+                  
+                  <h3 className="text-lg font-bold text-white group-hover:text-primary transition-colors leading-snug line-clamp-2">
+                    {cert.title}
+                  </h3>
+                </div>
+
+                <div className="flex justify-between items-center pt-4 border-t border-white/5">
+                  <span className="text-xs text-neutral-500 font-medium">Achieved: {cert.date}</span>
+                  <span className="inline-flex items-center gap-1 text-xs font-semibold text-primary group-hover:text-white transition-colors">
+                    Verify <ExternalLink size={12} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                   </span>
                 </div>
-                
-                <h3 className="text-lg font-bold text-white group-hover:text-primary transition-colors leading-snug line-clamp-2">
-                  {cert.title}
-                </h3>
-              </div>
-
-              <div className="flex justify-between items-center pt-4 border-t border-white/5">
-                <span className="text-xs text-neutral-500 font-medium">Achieved: {cert.date}</span>
-                <span className="inline-flex items-center gap-1 text-xs font-semibold text-primary group-hover:text-white transition-colors">
-                  Verify <ExternalLink size={12} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-                </span>
-              </div>
+              </LiquidGlass>
             </motion.a>
           ))}
         </div>

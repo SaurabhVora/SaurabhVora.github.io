@@ -1,6 +1,7 @@
 import { useRef } from 'react';
 import { motion, useScroll, useSpring } from 'framer-motion';
 import { Briefcase, GraduationCap } from 'lucide-react';
+import LiquidGlass from './LiquidGlass';
 
 const workExperience = [
   {
@@ -146,13 +147,13 @@ const Experience = () => {
                     className="relative"
                   >
                     <TimelineBullet />
-                    <div className="bg-neutral-900/40 backdrop-blur-md border border-white/10 p-6 rounded-2xl hover:-translate-y-2 hover:border-primary/50 hover:shadow-[0_0_30px_rgba(255,255,255,0.08)] hover:bg-neutral-800/50 transition-all duration-300">
+                    <LiquidGlass className="p-6 hover:-translate-y-2 transition-all duration-300">
                       <h3 className="text-xl font-bold text-white font-display transition-colors">{item.title}</h3>
                       <div className="text-primary text-sm font-semibold mb-3">{item.company} • {item.period}</div>
                       <p className="text-neutral-400 text-sm leading-relaxed">
                         {item.desc}
                       </p>
-                    </div>
+                    </LiquidGlass>
                   </motion.div>
                 ))}
               </motion.div>
@@ -194,11 +195,11 @@ const Experience = () => {
                     className="relative"
                   >
                     <TimelineBullet />
-                    <div className="bg-neutral-900/40 backdrop-blur-md border border-white/10 p-6 rounded-2xl hover:-translate-y-2 hover:border-primary/50 hover:shadow-[0_0_30px_rgba(255,255,255,0.08)] hover:bg-neutral-800/50 transition-all duration-300">
+                    <LiquidGlass className="p-6 hover:-translate-y-2 transition-all duration-300">
                       <h3 className="text-xl font-bold text-white font-display">{item.title}</h3>
                       <div className="text-neutral-300 text-sm font-semibold mb-2">{item.school} • {item.period}</div>
                       <div className="text-primary text-sm font-bold">{item.gpa}</div>
-                    </div>
+                    </LiquidGlass>
                   </motion.div>
                 ))}
               </motion.div>

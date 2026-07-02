@@ -1,32 +1,47 @@
 import { motion } from 'framer-motion';
-import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer, Tooltip as RechartsTooltip } from 'recharts';
-import { Cpu } from 'lucide-react';
+import { Cpu, Brain, Search, Code, Terminal } from 'lucide-react';
 import TiltCard from './TiltCard';
 
-const CustomTooltip = ({ active, payload }) => {
-  if (active && payload && payload.length) {
-    return (
-      <div className="bg-neutral-950/95 backdrop-blur-md border border-white/25 p-3 rounded-xl shadow-[0_0_20px_rgba(255,255,255,0.08)]">
-        <p className="text-xs font-semibold text-neutral-400 font-display mb-1">{payload[0].payload.subject}</p>
-        <p className="text-sm font-bold text-white">
-          Proficiency: <span className="text-neutral-300">{payload[0].value}%</span>
-        </p>
-      </div>
-    );
+const getSkillIcon = (name) => {
+  const brandIcons = {
+    'scikit-learn': 'https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/scikitlearn.svg',
+    'TensorFlow': 'https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/tensorflow.svg',
+    'Keras': 'https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/keras.svg',
+    'Python': 'https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/python.svg',
+    'JavaScript': 'https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/javascript.svg',
+    'SQL (PostgreSQL)': 'https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/postgresql.svg',
+    'Flask': 'https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/flask.svg',
+    'Streamlit': 'https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/streamlit.svg',
+    'Next.js 15': 'https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/nextdotjs.svg',
+    'React.js': 'https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/react.svg',
+    'GCP': 'https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/googlecloud.svg',
+    'Firebase': 'https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/firebase.svg',
+    'Supabase': 'https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/supabase.svg',
+    'Docker': 'https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/docker.svg',
+    'Google Colab': 'https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/googlecolab.svg',
+  };
+
+  const cdnUrl = brandIcons[name];
+  if (cdnUrl) {
+    return <img src={cdnUrl} alt={name} className="w-4 h-4 filter invert opacity-80 group-hover/pill:opacity-100 transition-opacity" />;
   }
-  return null;
+
+  // Fallback to Lucide icons
+  switch (name) {
+    case 'NLP':
+      return <Brain className="text-neutral-400 group-hover/pill:text-primary transition-colors" size={16} />;
+    case 'LLMs':
+      return <Cpu className="text-neutral-400 group-hover/pill:text-primary transition-colors" size={16} />;
+    case 'RAG':
+      return <Search className="text-neutral-400 group-hover/pill:text-primary transition-colors" size={16} />;
+    case 'HTML/CSS':
+      return <Code className="text-neutral-400 group-hover/pill:text-primary transition-colors" size={16} />;
+    default:
+      return <Terminal className="text-neutral-400 group-hover/pill:text-primary transition-colors" size={16} />;
+  }
 };
 
 const Skills = () => {
-  const radarData = [
-    { subject: 'Machine Learning', score: 95, fullMark: 100 },
-    { subject: 'NLP & LLMs', score: 85, fullMark: 100 },
-    { subject: 'Python Data Stack', score: 90, fullMark: 100 },
-    { subject: 'Web Dev (React)', score: 75, fullMark: 100 },
-    { subject: 'Backend & APIs', score: 85, fullMark: 100 },
-    { subject: 'Cloud & Docker', score: 80, fullMark: 100 },
-  ];
-
   const skills = [
     { category: 'ML / AI', items: ['scikit-learn', 'TensorFlow', 'Keras', 'NLP', 'LLMs', 'RAG'] },
     { category: 'Languages', items: ['Python', 'JavaScript', 'SQL (PostgreSQL)', 'HTML/CSS'] },
@@ -49,67 +64,38 @@ const Skills = () => {
           <div className="w-20 h-1 bg-primary mx-auto rounded-full"></div>
         </motion.div>
 
-        <div className="grid lg:grid-cols-2 gap-12 items-stretch">
-          {/* 3D Tilt Radar Chart Column */}
-          <TiltCard className="bg-neutral-900/40 backdrop-blur-xl rounded-3xl border border-white/10 p-4 shadow-2xl flex flex-col justify-center h-[400px]">
-            <ResponsiveContainer width="100%" height="100%" minWidth={0} minHeight={0}>
-              <RadarChart cx="50%" cy="50%" outerRadius="70%" data={radarData}>
-                <defs>
-                  <filter id="white-glow" x="-20%" y="-20%" width="140%" height="140%">
-                    <feGaussianBlur stdDeviation="4" result="blur" />
-                    <feComposite in="SourceGraphic" in2="blur" operator="over" />
-                  </filter>
-                  <linearGradient id="white-gradient" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor="#ffffff" stopOpacity={0.4} />
-                    <stop offset="100%" stopColor="#a3a3a3" stopOpacity={0.1} />
-                  </linearGradient>
-                </defs>
-                <PolarGrid stroke="#262626" />
-                <PolarAngleAxis dataKey="subject" tick={{ fill: '#a3a3a3', fontSize: 11, fontWeight: 600, fontFamily: 'Outfit' }} />
-                <PolarRadiusAxis angle={30} domain={[0, 100]} tick={false} axisLine={false} />
-                <RechartsTooltip content={<CustomTooltip />} />
-                <Radar
-                  name="Proficiency"
-                  dataKey="score"
-                  stroke="#ffffff"
-                  strokeWidth={2}
-                  fill="url(#white-gradient)"
-                  filter="url(#white-glow)"
-                  activeDot={{ r: 6, fill: '#ffffff', stroke: '#e5e5e5', strokeWidth: 1.5 }}
-                />
-              </RadarChart>
-            </ResponsiveContainer>
-          </TiltCard>
-
-          {/* Cards Column */}
-          <div className="grid sm:grid-cols-2 gap-6">
-            {skills.map((skillGroup, idx) => (
-              <TiltCard 
-                key={idx} 
-                className="bg-neutral-900/40 backdrop-blur-md p-6 rounded-2xl border border-white/10 hover:border-white/40 hover:shadow-[0_0_30px_rgba(255,255,255,0.08)] hover:bg-neutral-800/50 transition-[border-color,background-color,box-shadow] duration-300 flex flex-col justify-between"
-              >
-                <div>
-                  <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2 font-display">
-                    <motion.div animate={{ y: [0, -6, 0] }} transition={{ repeat: Infinity, duration: 2.5, ease: "easeInOut", delay: idx * 0.2 }}>
-                      <Cpu className="text-white" size={20} />
+        {/* 4-Column Grid of Liquid Glass Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          {skills.map((skillGroup, idx) => (
+            <TiltCard 
+              key={idx} 
+              className="bg-white/5 backdrop-blur-2xl shadow-[0_8px_32px_rgba(0,0,0,0.5)] p-8 rounded-2xl border border-white/10 hover:border-white/40 hover:shadow-[0_0_30px_rgba(255,255,255,0.08)] hover:bg-neutral-800/50 transition-[border-color,background-color,box-shadow] duration-300 flex flex-col justify-between"
+            >
+              <div>
+                <h3 className="text-xl font-bold text-white mb-6 flex items-center gap-3 font-display">
+                  <motion.div 
+                    animate={{ y: [0, -6, 0] }} 
+                    transition={{ repeat: Infinity, duration: 2.5, ease: "easeInOut", delay: idx * 0.2 }}
+                  >
+                    <Cpu className="text-white" size={22} />
+                  </motion.div>
+                  {skillGroup.category}
+                </h3>
+                <div className="flex flex-col gap-3">
+                  {skillGroup.items.map(item => (
+                    <motion.div
+                      key={item}
+                      whileHover={{ scale: 1.03, x: 5 }}
+                      className="group/pill flex items-center gap-3 bg-neutral-900/40 text-neutral-300 px-4 py-2.5 rounded-xl border border-white/5 cursor-default hover:border-white/30 hover:text-white hover:bg-white/5 transition-all duration-300 font-medium"
+                    >
+                      {getSkillIcon(item)}
+                      <span className="text-sm font-semibold tracking-wide">{item}</span>
                     </motion.div>
-                    {skillGroup.category}
-                  </h3>
-                  <div className="flex flex-wrap gap-2">
-                    {skillGroup.items.map(item => (
-                      <motion.span
-                        key={item}
-                        whileHover={{ scale: 1.08, y: -2 }}
-                        className="bg-neutral-800/80 text-neutral-300 px-3 py-1 text-sm rounded-full border border-white/5 cursor-default hover:border-white/40 hover:text-white hover:shadow-[0_0_12px_rgba(255,255,255,0.12)] transition-all duration-300 font-medium"
-                      >
-                        {item}
-                      </motion.span>
-                    ))}
-                  </div>
+                  ))}
                 </div>
-              </TiltCard>
-            ))}
-          </div>
+              </div>
+            </TiltCard>
+          ))}
         </div>
       </div>
     </section>

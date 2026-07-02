@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import TiltCard from './TiltCard';
 import AnimatedCounter from './AnimatedCounter';
 import Magnetic from './Magnetic';
+import LiquidGlass from './LiquidGlass';
 
 const About = () => {
   const stats = [
@@ -78,7 +79,7 @@ const About = () => {
             {/* Stat cards */}
             <div className="grid grid-cols-3 gap-4">
               {stats.map((stat, i) => (
-                <TiltCard key={i} className="bg-neutral-900/50 backdrop-blur-md border border-white/10 rounded-2xl p-5 text-center flex flex-col justify-center items-center">
+                <TiltCard key={i} className="bg-white/5 backdrop-blur-2xl shadow-[0_8px_32px_rgba(0,0,0,0.5)] border border-white/10 rounded-2xl p-5 text-center flex flex-col justify-center items-center">
                   <div className="flex justify-center mb-2">{stat.icon}</div>
                   <div className="text-3xl font-black text-primary font-display">
                     <AnimatedCounter value={stat.value} />
@@ -91,7 +92,7 @@ const About = () => {
             {/* Pillar cards */}
             <div className="space-y-4">
               {pillars.map((p, i) => (
-                <div key={i} className="bg-neutral-900/40 backdrop-blur-md border border-white/10 rounded-2xl p-5 flex gap-4 items-start hover:border-primary/40 hover:bg-neutral-800/50 transition-all duration-300">
+                <LiquidGlass key={i} className="p-5 flex gap-4 items-start transition-all duration-300">
                   <div className="w-10 h-10 bg-primary/10 rounded-xl flex items-center justify-center shrink-0 mt-0.5">
                     {p.icon}
                   </div>
@@ -99,7 +100,7 @@ const About = () => {
                     <h3 className="text-white font-semibold mb-1">{p.title}</h3>
                     <p className="text-neutral-400 text-sm leading-relaxed">{p.desc}</p>
                   </div>
-                </div>
+                </LiquidGlass>
               ))}
             </div>
           </div>

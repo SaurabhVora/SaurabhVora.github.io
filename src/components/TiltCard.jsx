@@ -1,15 +1,13 @@
 import { useState } from 'react';
 import { motion, useMotionValue, useTransform, useSpring } from 'framer-motion';
 
-const TiltCard = ({ children, className = "", tiltMax = 12 }) => {
+const TiltCard = ({ children, className = "", tiltMax = 10 }) => {
   const x = useMotionValue(0);
   const y = useMotionValue(0);
 
-  // Maps mouse position relative to card size to rotation degrees
   const rotateX = useTransform(y, [-150, 150], [tiltMax, -tiltMax]);
   const rotateY = useTransform(x, [-150, 150], [-tiltMax, tiltMax]);
 
-  // Spring animation settings for buttery smooth returns
   const springX = useSpring(rotateX, { stiffness: 180, damping: 20 });
   const springY = useSpring(rotateY, { stiffness: 180, damping: 20 });
 
@@ -21,23 +19,19 @@ const TiltCard = ({ children, className = "", tiltMax = 12 }) => {
     const width = rect.width;
     const height = rect.height;
     
-    // Normalize coordinates around card center
     const mouseX = event.clientX - rect.left - width / 2;
     const mouseY = event.clientY - rect.top - height / 2;
     
     x.set(mouseX);
     y.set(mouseY);
 
-    // Spotlight relative to element top-left
     setMousePos({
       x: event.clientX - rect.left,
       y: event.clientY - rect.top,
     });
   };
 
-  const handleMouseEnter = () => {
-    setIsHovered(true);
-  };
+  const handleMouseEnter = () => setIsHovered(true);
 
   const handleMouseLeave = () => {
     x.set(0);
@@ -45,7 +39,7 @@ const TiltCard = ({ children, className = "", tiltMax = 12 }) => {
     setIsHovered(false);
   };
 
-  // Clean classNames to avoid duplicating border and background styles
+  // Extract layout classes, stripping visual styles we override
   const cleanedClassName = className
     .replace(/\bbg-[^\s]+/g, '')
     .replace(/\bborder-[^\s]+/g, '')
@@ -62,15 +56,10 @@ const TiltCard = ({ children, className = "", tiltMax = 12 }) => {
   const paddingClass = paddingMatch ? paddingMatch.join(' ') : 'p-6';
   const layoutClassName = cleanedClassName.replace(/\bp-[0-9a-zA-Z-/]+/g, '').trim();
 
-  // Dynamic corner rounding support
-  const isRounded3xl = className.includes('rounded-3xl');
-  const outerRoundClass = isRounded3xl ? 'rounded-3xl' : 'rounded-2xl';
-  const innerRoundClass = isRounded3xl ? 'rounded-[23px]' : 'rounded-[15px]';
-
   return (
     <div style={{ perspective: 1200 }} className="w-full h-full">
       <motion.div
-        className={`relative ${outerRoundClass} p-[1px] cursor-pointer group/spotlight overflow-hidden transition-all duration-300 bg-neutral-900/40 backdrop-blur-md ${layoutClassName}`}
+        className={`liquid-glass-card relative rounded-2xl cursor-pointer group/glass overflow-hidden ${layoutClassName}`}
         style={{
           rotateX: springX,
           rotateY: springY,
@@ -80,31 +69,61 @@ const TiltCard = ({ children, className = "", tiltMax = 12 }) => {
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       >
-        {/* Spotlight Border Layer - illuminated by mouse coordinates */}
-        <div
-          className="absolute inset-0 transition-opacity duration-300 pointer-events-none -z-10"
+        {/* === LAYER 1: Iridescent Border === */}
+        <div 
+          className="liquid-glass-border-base absolute inset-0 rounded-2xl z-0 opacity-60 group-hover/glass:opacity-100 transition-opacity duration-500"
+        />
+
+        {/* === LAYER 2: Glass Body === */}
+        <div 
+          className="liquid-glass-body-base absolute inset-[1px] rounded-[15px] z-[1]"
+        />
+
+        {/* === LAYER 3: Specular Highlight (top-left light catch) === */}
+        <div 
+          className="liquid-glass-specular absolute z-[2] pointer-events-none rounded-[15px]"
           style={{
-            opacity: isHovered ? 1 : 0,
-            background: `radial-gradient(250px circle at ${mousePos.x}px ${mousePos.y}px, rgba(255, 255, 255, 0.25), transparent 80%)`,
+            top: '-20%',
+            left: '-10%',
+            width: '70%',
+            height: '60%',
           }}
         />
-        
-        {/* Default border layer */}
-        <div className={`absolute inset-0 bg-white/10 ${outerRoundClass} -z-20 pointer-events-none`} />
 
-        {/* Inner Content Area */}
+        {/* === LAYER 4: Chromatic Edge Shimmer (bottom-right) === */}
+        <div 
+          className="liquid-glass-chromatic absolute z-[2] pointer-events-none rounded-[15px] opacity-40 group-hover/glass:opacity-70 transition-opacity duration-500"
+          style={{
+            bottom: '-10%',
+            right: '-10%',
+            width: '60%',
+            height: '50%',
+          }}
+        />
+
+        {/* === LAYER 5: Mouse-tracking spotlight glow === */}
         <div
-          style={{ transform: 'translateZ(15px)', transformStyle: 'preserve-3d' }}
-          className={`w-full h-full ${innerRoundClass} bg-neutral-950/90 overflow-hidden relative flex flex-col justify-between ${paddingClass}`}
+          className="absolute inset-0 rounded-[15px] z-[3] transition-opacity duration-300 pointer-events-none"
+          style={{
+            opacity: isHovered ? 1 : 0,
+            background: `radial-gradient(300px circle at ${mousePos.x}px ${mousePos.y}px, rgba(255,255,255,0.12), transparent 60%)`,
+          }}
+        />
+
+        {/* === LAYER 6: Moving Specular Sheen (wet glass reflection) === */}
+        <motion.div 
+          className="liquid-glass-sheen absolute inset-0 z-[4] pointer-events-none rounded-[15px] opacity-0 group-hover/glass:opacity-100 transition-opacity duration-500"
+          animate={{ 
+            backgroundPosition: ['200% 0', '-200% 0']
+          }}
+          transition={{ repeat: Infinity, duration: 3, ease: "linear" }}
+        />
+
+        {/* === LAYER 7: Content === */}
+        <div
+          style={{ transform: 'translateZ(10px)', transformStyle: 'preserve-3d' }}
+          className={`relative z-[5] w-full h-full flex flex-col justify-between ${paddingClass}`}
         >
-          {/* Spotlight Background Glow - illuminated by mouse coordinates */}
-          <div
-            className="absolute inset-0 transition-opacity duration-300 pointer-events-none"
-            style={{
-              opacity: isHovered ? 1 : 0,
-              background: `radial-gradient(200px circle at ${mousePos.x}px ${mousePos.y}px, rgba(255, 255, 255, 0.05), transparent 80%)`,
-            }}
-          />
           <div className="relative z-10 w-full h-full flex flex-col justify-between">
             {children}
           </div>

@@ -67,32 +67,78 @@ const Hero = () => {
         <div className="absolute inset-0 bg-gradient-to-t from-neutral-950 via-transparent via-30% to-neutral-950/30" />
       </motion.div>
 
-      {/* Floating Badges (Right Side) */}
+      {/* Floating Badges (Right Side) - iOS 26 Liquid Glass */}
       <motion.div
-        className="hidden lg:flex absolute top-1/4 right-[10%] bg-white/5 backdrop-blur-xl border border-white/10 p-4 rounded-2xl shadow-2xl z-20 items-center gap-4"
-        animate={{ y: [0, -15, 0] }}
-        transition={{ repeat: Infinity, duration: 5, ease: "easeInOut" }}
+        className="hidden lg:flex absolute top-1/4 right-[10%] z-20 items-center gap-4 overflow-hidden group/glass rounded-2xl p-5"
+        animate={{ 
+          y: [0, -20, 0],
+          borderRadius: ["40% 60% 70% 30% / 40% 50% 60% 50%", "60% 40% 30% 70% / 60% 30% 70% 40%", "40% 60% 70% 30% / 40% 50% 60% 50%"]
+        }}
+        transition={{ repeat: Infinity, duration: 6, ease: "easeInOut" }}
       >
-        <div className="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center text-white border border-white/10">
+        {/* Iridescent border */}
+        <div className="absolute inset-0 rounded-[inherit] z-0 opacity-60" style={{
+          background: 'conic-gradient(from 180deg, rgba(120,119,198,0.4), rgba(100,220,255,0.4), rgba(200,150,255,0.4), rgba(100,220,255,0.4), rgba(120,119,198,0.4))',
+          padding: '1px',
+          WebkitMask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
+          WebkitMaskComposite: 'xor',
+          maskComposite: 'exclude',
+        }} />
+        {/* Glass body */}
+        <div className="absolute inset-[1px] rounded-[inherit] z-[1]" style={{
+          background: 'linear-gradient(135deg, rgba(255,255,255,0.10) 0%, rgba(255,255,255,0.03) 50%, rgba(255,255,255,0.08) 100%)',
+          backdropFilter: 'blur(24px) saturate(1.8)',
+          WebkitBackdropFilter: 'blur(24px) saturate(1.8)',
+          boxShadow: 'inset 0 1px 1px rgba(255,255,255,0.15), inset 0 -1px 1px rgba(255,255,255,0.05), 0 8px 32px rgba(0,0,0,0.4)',
+        }} />
+        {/* Specular */}
+        <div className="absolute z-[2] pointer-events-none" style={{ top: '-20%', left: '-10%', width: '70%', height: '60%', background: 'radial-gradient(ellipse at 30% 30%, rgba(255,255,255,0.15), transparent 70%)' }} />
+        {/* Chromatic edge */}
+        <div className="absolute z-[2] pointer-events-none opacity-40" style={{ bottom: '-10%', right: '-10%', width: '60%', height: '50%', background: 'radial-gradient(ellipse at 70% 70%, rgba(100,200,255,0.2), rgba(180,120,255,0.1), transparent 70%)' }} />
+
+        <div className="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center text-white relative z-10 shadow-inner" style={{ boxShadow: 'inset 0 1px 2px rgba(255,255,255,0.15), 0 2px 8px rgba(0,0,0,0.3)' }}>
           <BrainCircuit size={24} />
         </div>
-        <div>
-          <p className="text-[11px] text-neutral-400 font-semibold tracking-wider uppercase">Role</p>
-          <p className="text-sm font-bold text-white">AI/ML Engineer</p>
+        <div className="relative z-10">
+          <p className="text-[11px] text-white/70 font-semibold tracking-wider uppercase drop-shadow-md">Role</p>
+          <p className="text-sm font-bold text-white drop-shadow-lg">AI/ML Engineer</p>
         </div>
       </motion.div>
 
       <motion.div
-        className="hidden lg:flex absolute bottom-1/4 right-[20%] bg-white/5 backdrop-blur-xl border border-white/10 p-4 rounded-2xl shadow-2xl z-20 items-center gap-4"
-        animate={{ y: [0, 15, 0] }}
-        transition={{ repeat: Infinity, duration: 6, ease: "easeInOut", delay: 1 }}
+        className="hidden lg:flex absolute bottom-1/4 right-[20%] z-20 items-center gap-4 overflow-hidden group/glass rounded-2xl p-5"
+        animate={{ 
+          y: [0, 20, 0],
+          borderRadius: ["60% 40% 30% 70% / 60% 30% 70% 40%", "40% 60% 70% 30% / 40% 50% 60% 50%", "60% 40% 30% 70% / 60% 30% 70% 40%"]
+        }}
+        transition={{ repeat: Infinity, duration: 7, ease: "easeInOut", delay: 1 }}
       >
-        <div className="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center text-white border border-white/10">
+        {/* Iridescent border */}
+        <div className="absolute inset-0 rounded-[inherit] z-0 opacity-60" style={{
+          background: 'conic-gradient(from 90deg, rgba(100,220,255,0.4), rgba(200,150,255,0.4), rgba(120,119,198,0.4), rgba(100,220,255,0.4))',
+          padding: '1px',
+          WebkitMask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
+          WebkitMaskComposite: 'xor',
+          maskComposite: 'exclude',
+        }} />
+        {/* Glass body */}
+        <div className="absolute inset-[1px] rounded-[inherit] z-[1]" style={{
+          background: 'linear-gradient(135deg, rgba(255,255,255,0.10) 0%, rgba(255,255,255,0.03) 50%, rgba(255,255,255,0.08) 100%)',
+          backdropFilter: 'blur(24px) saturate(1.8)',
+          WebkitBackdropFilter: 'blur(24px) saturate(1.8)',
+          boxShadow: 'inset 0 1px 1px rgba(255,255,255,0.15), inset 0 -1px 1px rgba(255,255,255,0.05), 0 8px 32px rgba(0,0,0,0.4)',
+        }} />
+        {/* Specular */}
+        <div className="absolute z-[2] pointer-events-none" style={{ top: '-20%', left: '-10%', width: '70%', height: '60%', background: 'radial-gradient(ellipse at 30% 30%, rgba(255,255,255,0.15), transparent 70%)' }} />
+        {/* Chromatic edge */}
+        <div className="absolute z-[2] pointer-events-none opacity-40" style={{ bottom: '-10%', right: '-10%', width: '60%', height: '50%', background: 'radial-gradient(ellipse at 70% 70%, rgba(100,200,255,0.2), rgba(180,120,255,0.1), transparent 70%)' }} />
+
+        <div className="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center text-white relative z-10 shadow-inner" style={{ boxShadow: 'inset 0 1px 2px rgba(255,255,255,0.15), 0 2px 8px rgba(0,0,0,0.3)' }}>
           <Target size={24} />
         </div>
-        <div>
-          <p className="text-[11px] text-neutral-400 font-semibold tracking-wider uppercase">Top Model</p>
-          <p className="text-sm font-bold text-white">82% Accuracy</p>
+        <div className="relative z-10">
+          <p className="text-[11px] text-white/70 font-semibold tracking-wider uppercase drop-shadow-md">Top Model</p>
+          <p className="text-sm font-bold text-white drop-shadow-lg">82% Accuracy</p>
         </div>
       </motion.div>
 

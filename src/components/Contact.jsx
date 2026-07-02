@@ -3,6 +3,7 @@ import emailjs from '@emailjs/browser';
 import { Mail, Phone, MapPin, Sparkles } from 'lucide-react';
 import { motion } from 'framer-motion';
 import Magnetic from './Magnetic';
+import LiquidGlass from './LiquidGlass';
 
 const Contact = () => {
   const formRef = useRef();
@@ -69,7 +70,7 @@ const Contact = () => {
         <div className="grid md:grid-cols-5 gap-10 items-stretch">
           {/* Info cards */}
           <div className="md:col-span-2 flex flex-col justify-between gap-6">
-            <div className="bg-neutral-900/40 backdrop-blur-md border border-white/10 p-6 rounded-2xl flex flex-col gap-6 h-full justify-center">
+            <LiquidGlass className="p-6 flex flex-col gap-6 h-full justify-center">
               <a href="mailto:saurabhvora27@gmail.com" className="flex items-center gap-4 p-4 rounded-xl bg-white/5 border border-white/5 hover:border-primary/30 hover:bg-primary/5 transition-all group">
                 <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary group-hover:scale-110 transition-transform">
                   <Mail size={22} />
@@ -99,12 +100,13 @@ const Contact = () => {
                   <p className="text-sm font-semibold text-white">Ahmedabad, Gujarat, India</p>
                 </div>
               </div>
-            </div>
+            </LiquidGlass>
           </div>
 
           {/* Contact form */}
           <div className="md:col-span-3">
-            <form ref={formRef} onSubmit={handleSubmit} className="bg-neutral-900/40 backdrop-blur-md border border-white/10 p-8 rounded-2xl flex flex-col gap-5 relative overflow-hidden group hover:border-primary/20 transition-all duration-300">
+            <LiquidGlass className="p-8 flex flex-col gap-5">
+            <form ref={formRef} onSubmit={handleSubmit} className="flex flex-col gap-5 relative">
               
               <div className="grid sm:grid-cols-2 gap-4">
                 <div className="flex flex-col gap-1.5">
@@ -113,6 +115,7 @@ const Contact = () => {
                     type="text"
                     id="name"
                     name="name"
+                    autoComplete="name"
                     required
                     value={formData.name}
                     onChange={handleChange}
@@ -126,6 +129,7 @@ const Contact = () => {
                     type="email"
                     id="email"
                     name="email"
+                    autoComplete="email"
                     required
                     value={formData.email}
                     onChange={handleChange}
@@ -170,6 +174,7 @@ const Contact = () => {
                 </button>
               </Magnetic>
             </form>
+            </LiquidGlass>
           </div>
         </div>
       </div>
